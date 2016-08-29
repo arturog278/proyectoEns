@@ -15,8 +15,27 @@ public class Fase_1 {
             BufferedReader buffer = new BufferedReader(new InputStreamReader(entrada));
             String strLinea;
             while ((strLinea = buffer.readLine()) != null)   {
-            	//TO-DO
+            	if (strLinea.contains(";"))
+            	{
+            		
+					int i;
+					i=0;
+					while(strLinea.charAt(i)==';'){
+            			i=i+1;
+            		}
+					if(strLinea.charAt(0)==';'){
+						strLinea="";
+					}
+					else{
+						strLinea=strLinea.substring(0, i);
+					}
+					
+					
+            			
+            	}
+
                 System.out.println (strLinea);
+
             }
             entrada.close();
         }catch (Exception e){
@@ -25,3 +44,4 @@ public class Fase_1 {
     }
 
 }
+					
