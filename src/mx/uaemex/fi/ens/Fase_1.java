@@ -21,52 +21,40 @@ public class Fase_1 {
             while ((strLinea = buffer.readLine()) != null)   {
             	if (!strLinea.isEmpty())
             	{
+            		if(strLinea.charAt(0)==' '){
+            			int a = 0;
+            			while(strLinea.charAt(a)==' '){
+                			a+=1;
+            			}
+            			strLinea=strLinea.substring(a);
+            		}
 
             			
             		if (strLinea.contains(";"))
                 	{
                 		
     					int i = 0;    				
-    					int b = 0;
     					while(strLinea.charAt(i)!=';'){
                 			i=i+1;
-							if(strLinea.charAt(i)!=' '){
-                				b=1;
-                				break;
                 		}
-    					if(strLinea.charAt(0)!=';' && b==1){
+    					if(strLinea.charAt(0)!=';'){
     						strLinea=strLinea.substring(0, i);
-    						if(strLinea.charAt(0)==' ')
-                    		{
-                    			while(strLinea.charAt(0)==' '){
-                    				strLinea=strLinea.substring(1);
-                    			}
-                    		}
-    						}
-    						
-    						
-    						//bw.write (strLinea+"\n");
+    						bw.write (strLinea+"\n");
     					}
+    						
+    					}else{
+    						bw.write (strLinea+"\n");
+                	}
     					
     					
                 			
                 	}
-                	else{
-                		
-                		if(strLinea.charAt(0)==' ')
-                		{
-                			while(strLinea.charAt(0)==' '){
-                				strLinea=strLinea.substring(1);
-                			}
-                		}
-                		
-                		System.out.println(strLinea);
-                	}
+                	
             	}
             	
                 
 
-            }
+            
             entrada.close();
             /*
             bw.close();
