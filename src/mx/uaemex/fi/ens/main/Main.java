@@ -13,8 +13,10 @@ public class Main {
         Scanner entradaEscaner = new Scanner (System.in); 
         entradaTeclado = entradaEscaner.nextLine (); 
         try {
+        	Desplegar desp;
 			Fase_1 fase1 = new Fase_1(entradaTeclado);
 			Fase_2 fase2 = new Fase_2(fase1.getArchSalida());
+			desp = new Desplegar(fase2.getArchSalida());
 		} catch (Exception e) {			
 	           System.err.println("Ocurrio un error: " + e.getMessage());
 		}

@@ -32,4 +32,8 @@ public class Fase_2 {
 		br.close();
 	}
 
+	public File getArchSalida() {
+		return archSalida;
+	}
+
 }
