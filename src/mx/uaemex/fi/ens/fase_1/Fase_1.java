@@ -1,43 +1,24 @@
-package mx.uaemex.fi.ens;
+package mx.uaemex.fi.ens.fase_1;
 import java.io.*;
 import java.util.Scanner;
 
 public class Fase_1 {
+	private File archSalida;
+	private BufferedWriter bwSalida;
 
-	public static void main(String args[]) {
-        try{
+	public Fase_1(String entradaTeclado) throws Exception{
         	File temp= File.createTempFile("ArchivoTemp",".tmp" );
-        	temp.deleteOnExit();//Archivo temporal para guardar lo boenido
+        	temp.deleteOnExit();
         	BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
         	
-        	System.out.println ("Por favor introduzca el nombre del programa a traducir (con extension .asm):");
-            String entradaTeclado = "";
-            Scanner entradaEscaner = new Scanner (System.in); 
-            entradaTeclado = entradaEscaner.nextLine (); 
             FileInputStream fstream = new FileInputStream(entradaTeclado);
             DataInputStream entrada = new DataInputStream(fstream);
             BufferedReader buffer = new BufferedReader(new InputStreamReader(entrada));
             String strLinea;
             while ((strLinea = buffer.readLine()) != null)   {
             	if (!strLinea.isEmpty())
-            	{
-            		if(strLinea.charAt(0)=='\t'){
-            			int a = 0;
-            			while(strLinea.charAt(a)=='\t'){
-                			a+=1;
-            			}
-            			strLinea=strLinea.substring(a);
-            		}
-            		if(strLinea.charAt(0)==' '){
-            			int a = 0;
-            			while(strLinea.charAt(a)==' '){
-                			a+=1;
-            			}
-            			strLinea=strLinea.substring(a);
-            		}
-            		
-
-            			
+            	{           		
+            		strLinea = strLinea.trim();           			
             		if (strLinea.contains(";"))
                 	{
                 		
@@ -53,18 +34,19 @@ public class Fase_1 {
     					}else{
     						bw.write (strLinea+"\n");
                 	}
-    					
-    					
-                			
+    					   					              			
                 	}
                 	
             	}         
             entrada.close();
             bw.close();
+            File temp2= File.createTempFile("ArchivoTemp2",".tmp" );
+        	temp2.deleteOnExit();
+        	bw = new BufferedWriter(new FileWriter(temp2));
             BufferedReader bufferTemp = new BufferedReader(new FileReader(temp));
             while ((strLinea = bufferTemp.readLine()) != null)   {           	
-            	if (strLinea.contains("data segment") || strLinea.contains("code segment")|| strLinea.contains("stack segment")){
-            		System.out.println(strLinea);
+            	if (strLinea.equalsIgnoreCase("data segment") || strLinea.equalsIgnoreCase("code segment")|| strLinea.equalsIgnoreCase("stack segment")){
+            		bw.write(strLinea+"\n");
             	}else{
             		String substr = "";
             		int y=0;
@@ -76,7 +58,7 @@ public class Fase_1 {
             					y+=1;
             				}
             				substr = strLinea.substring(x, y+1);
-            				System.out.println(substr);
+            				bw.write(substr+"\n");
             				x=y;
             				break;
             			case '[':
@@ -85,7 +67,7 @@ public class Fase_1 {
             					y+=1;
             				}
             				substr = strLinea.substring(x, y+1);
-            				System.out.println(substr);
+            				bw.write(substr+"\n");
             				x=y;
             				break;
             			case '\'':
@@ -94,23 +76,23 @@ public class Fase_1 {
             					y+=1;
             				}
             				substr = strLinea.substring(x, y+1);
-            				System.out.println(substr);
+            				bw.write(substr+"\n");
             				x=y;
             				break;
             			default:
             				if(strLinea.charAt(x)!=' ' & strLinea.charAt(x)!=','& strLinea.charAt(x)!=':'){
-            					if(strLinea.length()-x>3 && strLinea.substring(x, x+3)=="dub("){           				
+            					if(strLinea.length()-x>3 && strLinea.substring(x, x+4)=="dup("){           				
             						y=x+1;
                        				while(strLinea.charAt(y)!=')'){
                        					y+=1;
                        				}
                        				substr = strLinea.substring(x, y+1);
-                       				System.out.println(substr);
+                       				bw.write(substr+"\n");
                        				x=y;            						
             					}else{
             						y=x+1;
             						if(y==strLinea.length()){
-            							System.out.println(strLinea.charAt(x));
+            							bw.write(strLinea.charAt(x)+"\n");
             						}else{           							
             							while(strLinea.charAt(y)!=' ' & strLinea.charAt(x)!=',' & strLinea.charAt(x)!=':'){
             								y+=1;            								
@@ -123,7 +105,7 @@ public class Fase_1 {
             							substr = substr.replaceAll(",", "\n");
             							substr = substr.replaceAll(" ", "\n");
             							substr = substr.replaceAll(":", "\n");
-               							System.out.println(substr);
+            							bw.write(substr+"\n");
                							x=y;   
             						}			
             					}
@@ -134,17 +116,38 @@ public class Fase_1 {
             			}
             			
             		}
-            	
-            	
+      	
             		
             	}
             			
-            	}
+            	}  
+            bw.close();
+            this.creacionArchivo(temp2);
             
-        }catch (Exception e){
-            System.err.println("Ocurrio un error: " + e.getMessage());
-        }
     }
+	
+	private void creacionArchivo(File archTemp) throws Exception{
+		this.archSalida = new File("resultadoFase1.txt");
+		this.bwSalida = new BufferedWriter(new FileWriter(this.archSalida));
+		BufferedReader br = new BufferedReader(new FileReader(archTemp));
+		String strLinea;
+		while ((strLinea = br.readLine()) != null){
+			strLinea = strLinea.replaceAll("\"", "");
+			strLinea = strLinea.replaceAll("\'", "");
+			strLinea = strLinea.replaceAll("[\\[\\]]", "");		
+			strLinea = strLinea.trim();
+			if(!strLinea.isEmpty()){
+				this.bwSalida.write(strLinea+"\n");
+			}
+		}
+		this.bwSalida.close();
+		br.close();
+		
+	}
+
+	public File getArchSalida() {
+		return archSalida;
+	}
 
 }
 					
