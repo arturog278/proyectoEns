@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 
+import mx.uaemex.fi.ens.main.Main;
+
 public class Fase_2 {
 	private File archSalida;
 	private BufferedWriter bwSalida;

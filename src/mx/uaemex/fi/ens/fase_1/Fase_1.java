@@ -2,6 +2,8 @@ package mx.uaemex.fi.ens.fase_1;
 import java.io.*;
 import java.util.Scanner;
 
+import mx.uaemex.fi.ens.main.Main;
+
 public class Fase_1 {
 	private File archSalida;
 	private BufferedWriter bwSalida;
