@@ -1,7 +1,6 @@
 Calculator
 
-	       PAGE    ,132
-	       TITLE   CALC
+	       PAGE    ,0ffh	       TITLE   CALC
 CGROUP	       GROUP   CODESEG
 CODESEG        SEGMENT PARA PUBLIC 'CODE'
 	       ASSUME  CS:CGROUP,DS:CGROUP,ES:CGROUP

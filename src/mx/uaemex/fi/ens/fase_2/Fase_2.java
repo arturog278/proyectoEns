@@ -26,6 +26,17 @@ public class Fase_2 {
 				this.bwSalida.write(strLinea+" \"Pseudoinstruccion\""+"\n");
 			}else if(this.id.esRegistro(strLinea)){
 				this.bwSalida.write(strLinea+" \"Registro\""+"\n");
+			}else if(this.id.esConsString(strLinea)){
+					this.bwSalida.write(strLinea+" \"Constante Cadena\""+"\n");
+			}else if(this.id.esConsDec(strLinea)){
+				this.bwSalida.write(strLinea+" \"Constante Decimal\""+"\n");
+			}
+			else if(this.id.esConsBin(strLinea)){
+			this.bwSalida.write(strLinea+" \"Constante Binaria\""+"\n");
+			}else if(this.id.esConsHexa(strLinea)){
+				this.bwSalida.write(strLinea+" \"Constante Hexadecimal\""+"\n");
+			}else if(this.id.esSimb(strLinea)){
+					this.bwSalida.write(strLinea+" \"Símbolo\""+"\n");
 			}else{
 				this.bwSalida.write(strLinea+" \"Objeto no identificado\""+"\n");
 			}
