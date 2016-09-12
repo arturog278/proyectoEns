@@ -133,10 +133,7 @@ public class Fase_1 {
 		this.bwSalida = new BufferedWriter(new FileWriter(this.archSalida));
 		BufferedReader br = new BufferedReader(new FileReader(archTemp));
 		String strLinea;
-		while ((strLinea = br.readLine()) != null){
-			//strLinea = strLinea.replaceAll("\"", "");
-			//strLinea = strLinea.replaceAll("\'", "");
-			//strLinea = strLinea.replaceAll("[\\[\\]]", "");		
+		while ((strLinea = br.readLine()) != null){				
 			strLinea = strLinea.trim();
 			if(!strLinea.isEmpty()){
 				this.bwSalida.write(strLinea+"\n");
