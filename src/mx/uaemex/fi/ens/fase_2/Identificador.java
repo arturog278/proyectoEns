@@ -22,6 +22,30 @@ public class Identificador {
 		return false;
 	}
 	
+	public int esPseudoDS(String obj){
+		if(obj.equalsIgnoreCase("db"))
+			return 1;
+		else if(obj.equalsIgnoreCase("dw"))
+			return 2;
+		else if(obj.equalsIgnoreCase("equ"))
+			return 3;
+		else
+			return -1;
+	}
+	
+	public int idSegment(String obj){
+		if(obj.equalsIgnoreCase("Data Segment"))
+			return 1;
+		else if(obj.equalsIgnoreCase("Stack Segment"))
+			return 2;
+		else if(obj.equalsIgnoreCase("Code Segment"))
+			return 3;
+		else if(obj.equalsIgnoreCase("ends"))
+			return 0;
+		else
+			return -1;
+	}
+	
 	public boolean esRegistro(String obj){
 		for(int i=0;i<this.reg.length;i++){
 			if(this.reg[i].equalsIgnoreCase(obj)){
@@ -89,11 +113,70 @@ public class Identificador {
 			return false;
 		}
 	
-}
+	}
 	public boolean esSimb(String obj){
-		if(Character.isLetter(obj.charAt(0)) && obj.length()<=10){
+		if(Character.isLetter(obj.charAt(0)) && obj.length()<=10 && !obj.contains(" ")){
 			return true;
 		}
 		return false;
 	}
+	
+	 private static int hex2decimal(String s) {
+         String digits = "0123456789ABCDEF";
+         s = s.toUpperCase();
+         int val = 0;
+         for (int i = 0; i < s.length(); i++) {
+             char c = s.charAt(i);
+             int d = digits.indexOf(c);
+             val = 16*val + d;
+         }
+         return val;
+     }
+	 
+	 private static int bin2decimal(String s){
+		 int num=Integer.parseInt(s,2);
+		 return num;
+	 }
+	 
+	 public int esConsByte(String obj){
+		 if(this.esConsDec(obj)){
+			 if(Integer.parseInt(obj)>-127 && Integer.parseInt(obj)<256){
+				 return 1;
+			 }
+		 }else if(this.esConsHexa(obj)){
+			 int deci = Identificador.hex2decimal(obj.substring(0, obj.length()-1));
+			 if(deci>-127 && deci<256){
+				 return 1;
+			 }
+		 }else if(this.esConsBin(obj)){
+			 int deci = Identificador.bin2decimal(obj.substring(0,obj.length()-1));
+			 if(deci>-127 && deci<256){
+				 return 1;
+			 }
+		 }else if(this.esConsString(obj)){
+			 return 2;
+		 }
+		 return -1;		 
+	 }
+	 
+	 public int esConsWord(String obj){
+		 if(this.esConsDec(obj)){
+			 if(Integer.parseInt(obj)>-32769 && Integer.parseInt(obj)<65536){
+				 return 1;
+			 }
+		 }else if(this.esConsHexa(obj)){
+			 int deci = Identificador.hex2decimal(obj.substring(0, obj.length()-1));
+			 if(deci>-32769 && deci<65536){
+				 return 1;
+			 }
+		 }else if(this.esConsBin(obj)){
+			 int deci = Identificador.bin2decimal(obj.substring(0,obj.length()-1));
+			 if(deci>-32769 && deci<65536){
+				 return 1;
+			 }
+		 }else if(this.esConsString(obj)){
+			 return 2;
+		 }
+		 return -1;		 
+	 }
 }

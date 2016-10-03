@@ -124,7 +124,7 @@ public class Fase_1 {
             			
             	}  
             bw.close();
-            this.creacionArchivo(temp2);
+            this.creacionArchivo(temp);
             
     }
 	
