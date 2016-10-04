@@ -46,7 +46,7 @@ public class Fase_3 {
 	}
 	
 	private void checkLineData(String strLinea) throws Exception{
-		String[] vecLinea = new String[3];
+		String[] vecLinea = new String[5];
 		int i=0;
 		String substr = "";
 		int y=0;
@@ -115,6 +115,83 @@ public class Fase_3 {
 				}
 			}
 		}
+		boolean esCorrecto = true;
+		for(int j=0;j<5;j++){
+			if(vecLinea[j]!=null){
+				switch(j){
+				case 0:
+					if(!this.id.esSimb(vecLinea[j])){
+						bw.write(strLinea+" Incorrecto, Se esperaba un simbolo\n");
+						esCorrecto = false;
+						j=5;
+					}
+					break;
+				case 1:
+					if(this.id.esPseudoDS(vecLinea[j])==-1){
+						bw.write(strLinea+" Incorrecto, Se esperaba una pseudoinstruccion db,dw o equ\n");
+						esCorrecto = false;
+						j=5;
+					}
+					break;
+				case 2:
+					switch(this.id.esPseudoDS(vecLinea[1])){
+					case 1:
+						if(this.id.esConsByte(vecLinea[2])==-1){							
+							bw.write(strLinea+" Incorrecto, Se esperaba una constante de tamaño byte\n");
+							esCorrecto = false;
+							j=5;
+						}
+						break;
+					case 2:
+						if(this.id.esConsWord(vecLinea[2])!=1){
+							bw.write(strLinea+" Incorrecto, Se esperaba una constante de tamaño word\n");
+							esCorrecto = false;
+							j=5;
+						}
+						break;
+					case 3:
+						if(this.id.esConsWord(vecLinea[2])!=1){
+							bw.write(strLinea+" Incorrecto, Se esperaba una constante de tamaño word\n");
+							esCorrecto = false;
+							j=5;
+						}
+						break;
+					}
+					break;
+				case 3:
+					if(!this.id.esPseudo(vecLinea[j])){
+						bw.write(strLinea+" Incorrecto, Se esperaba una pseudoinstruccion dup\n");
+						esCorrecto = false;
+						j=5;
+					}
+					break;
+				case 4:
+					vecLinea[4] = vecLinea[4].replace('(',' ');
+					vecLinea[4] = vecLinea[4].replace(')', ' ');
+					vecLinea[4] = vecLinea[4].trim();
+					switch(this.id.esPseudoDS(vecLinea[1])){
+					case 1:
+						if(this.id.esConsByte(vecLinea[4])!=1){
+							bw.write(strLinea+" Incorrecto, Se esperaba una constante tipo byte\n");
+							esCorrecto = false;
+							j=5;
+						}
+						break;
+					case 2:
+						if(this.id.esConsWord(vecLinea[4])!=1){
+							bw.write(strLinea+" Incorrecto, Se esperaba una constante tipo word\n");
+							esCorrecto = false;
+							j=5;
+						}
+						break;
+					}
+				}
+			}
+		}
+		if(esCorrecto){
+			bw.write(strLinea+" Correcto\n");
+		}
+		/*
 		if(this.id.esSimb(vecLinea[0])){
 				switch(this.id.esPseudoDS(vecLinea[1])){
 				case 1:
@@ -143,7 +220,7 @@ public class Fase_3 {
 				}			
 		}else{
 			bw.write(strLinea+" Incorrecto, Se esperaba un simbolo\n");
-		}
+		}*/
 	}
 	
 	private void checkLineStack(String strLinea) throws Exception{

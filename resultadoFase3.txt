@@ -1,22 +1,19 @@
 data segment Correcto
-pkey db "press any key...$" Correcto
-var1 db 'hola' Correcto
-var2 dw 0 Correcto
+variableAAAAAAAA db 0 Incorrecto, Se esperaba un simbolo
+variable1 db 10 Correcto
+variable2 db 3000 Incorrecto, Se esperaba una constante de tamaño byte
+variable3 dw "HH" Incorrecto, Se esperaba una constante de tamaño word
+variable4 dw 5000H Correcto
+variable5 db amigo Incorrecto, Se esperaba una constante de tamaño byte
+variable6 db "HOLA" Correcto
+variable7 dw 076879987h Incorrecto, Se esperaba una constante de tamaño word
+variable8 dw 30 dup (67) Correcto
+variable9 db 70 dup('A') Correcto
+variable10 db 0AAh dup(10) Correcto
+variable11 db 5 dup ("bueno") Incorrecto, Se esperaba una constante tipo byte
+const1 equ 6060 Correcto
+const2 equ 400000 Incorrecto, Se esperaba una constante de tamaño word
 ends Correcto
 stack segment Correcto
-dw   128  dup(0) Correcto
-ends Correcto
-code segment Correcto
-start: "No identificado"
-mov ax, data "No identificado"
-mov ds, ax "No identificado"
-mov es, ax "No identificado"
-lea dx, pkey "No identificado"
-mov ah, 9 "No identificado"
-int 21h "No identificado"
-mov ah, 1 "No identificado"
-int 21h "No identificado"
-mov ah,[di] "No identificado"
-mov ax, 4c00h "No identificado"
-int 21h "No identificado"
+dw 128 dup(0) Correcto
 ends Correcto

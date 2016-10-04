@@ -79,7 +79,7 @@ public class Identificador {
 	}
 	public boolean esConsHexa(String obj){
 		obj=obj.toUpperCase();
-		if(obj.charAt(obj.length()-1)=='H' && obj.charAt(0)=='0'){
+		if(obj.charAt(obj.length()-1)=='H' && Character.isDigit(obj.charAt(0))){
 			for(int i=1;i<obj.length()-2;i++){
 				for(int j=0;j<6;j++){
 				if(!Character.isDigit(obj.charAt(i)) && obj.charAt(i)!=this.hexa[j]){

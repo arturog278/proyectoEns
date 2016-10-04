@@ -1,22 +1,19 @@
 data segment
-pkey db "press any key...$"
-var1 db 'hola'
-var2 dw 0
+variableAAAAAAAA db 0
+variable1 db 10
+variable2 db 3000
+variable3 dw "HH"
+variable4 dw 5000H
+variable5 db amigo
+variable6 db "HOLA"
+variable7 dw 076879987h
+variable8 dw 30 dup (67)
+variable9 db 70 dup('A')
+variable10 db 0AAh dup(10)
+variable11 db 5 dup ("bueno")
+const1 equ 6060
+const2 equ 400000
 ends
 stack segment
-dw   128  dup(0)
-ends
-code segment
-start:
-mov ax, data
-mov ds, ax
-mov es, ax
-lea dx, pkey
-mov ah, 9
-int 21h
-mov ah, 1
-int 21h
-mov ah,[di]
-mov ax, 4c00h
-int 21h
+dw 128 dup(0)
 ends
