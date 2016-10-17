@@ -1,18 +1,18 @@
 data segment Correcto
-variableAAAAAAAA db 0 Incorrecto, Se esperaba un simbolo
+variableAAAAAAAA db 0 Incorrecto, error de sintaxis
 variable1 db 10 Correcto
-variable2 db 3000 Incorrecto, Se esperaba una constante de tamaño byte
-variable3 dw "HH" Incorrecto, Se esperaba una constante de tamaño word
+variable2 db 3000 Incorrecto, se esperaba una constante tamaño byte
+variable3 dw "HH" Incorrecto, se esperaba una constante numerica tamaño word
 variable4 dw 5000H Correcto
-variable5 db amigo Incorrecto, Se esperaba una constante de tamaño byte
-variable6 db "HOLA" Correcto
-variable7 dw 076879987h Incorrecto, Se esperaba una constante de tamaño word
+variable5 db amigo Incorrecto, se esperaba una constante tamaño byte
+variable6 db "HOLA" Incorrecto, se esperaba una constante tamaño byte
+variable7 dw 076879987h Incorrecto, se esperaba una constante numerica tamaño word
 variable8 dw 30 dup (67) Correcto
 variable9 db 70 dup('A') Correcto
 variable10 db 0AAh dup(10) Correcto
-variable11 db 5 dup ("bueno") Incorrecto, Se esperaba una constante tipo byte
+variable11 db 5 dup ("bueno") Correcto
 const1 equ 6060 Correcto
-const2 equ 400000 Incorrecto, Se esperaba una constante de tamaño word
+const2 equ 400000 Incorrecto, se esperaba una constante numerica tamaño word
 ends Correcto
 stack segment Correcto
 dw 128 dup(0) Correcto

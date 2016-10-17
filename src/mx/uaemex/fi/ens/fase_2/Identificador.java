@@ -1,6 +1,9 @@
 package mx.uaemex.fi.ens.fase_2;
 
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class Identificador {
 	private final String[] instruc = {"CLC","INTO","PUSHA","PUSHF","IMUL","POP","OR","ADC","JGE","JMP","JNLE","LOOPE"};
@@ -65,6 +68,7 @@ public class Identificador {
 		}
 		return false;
 	}
+	
 	public boolean esConsString(String obj){
 		if(obj.charAt(0)=='\"'||obj.charAt(0)=='\''){
 			if(obj.charAt(obj.length()-1)=='\"'||obj.charAt(0)=='\''){
@@ -153,7 +157,7 @@ public class Identificador {
 			 if(deci>-127 && deci<256){
 				 return 1;
 			 }
-		 }else if(this.esConsString(obj)){
+		 }else if(this.esConsString(obj) && obj.length()==3){
 			 return 2;
 		 }
 		 return -1;		 
