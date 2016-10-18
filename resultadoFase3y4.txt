@@ -5,7 +5,7 @@ variable2 db 3000 Incorrecto, se esperaba una constante tamaño byte
 variable3 dw "HH" Incorrecto, se esperaba una constante numerica tamaño word
 variable4 dw 5000H Correcto
 variable5 db amigo Incorrecto, se esperaba una constante tamaño byte
-variable6 db "HOLA" Incorrecto, se esperaba una constante tamaño byte
+variable6 db "HOLA" Correcto
 variable7 dw 076879987h Incorrecto, se esperaba una constante numerica tamaño word
 variable8 dw 30 dup (67) Correcto
 variable9 db 70 dup('A') Correcto

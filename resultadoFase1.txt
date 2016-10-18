@@ -14,6 +14,54 @@ variable11 db 5 dup ("bueno")
 const1 equ 6060
 const2 equ 400000
 ends
-stack segment
-dw 128 dup(0)
+code segment
+CLC
+CLC variable1
+INTO
+INTO variable4
+PUSHA AX
+PUSHA
+PUSHF dup("lul")
+label1:
+IMUL AX
+IMUL variable 1
+IMUL variable11
+IMUL SS
+POP DX
+POP SS
+label2:
+POP variable8
+POP const2
+POP "lul
+OR AX, DX
+OR AX, variable1
+OR variable4, DX
+OR variable1, 11
+OR AX, 53
+OR AX, SS
+OR SS, DXX
+OR AX, const1
+label3:
+OR 11, DX
+OR CLC, DX
+OR variable4, DX
+ADC AX, DX
+ADC AX, variable1
+ADC variable4, DX
+ADC variable1, 11
+ADC AX, 53
+ADC AX, SS
+ADC SS, DXX
+label4:
+ADC AX, const1
+ADC 11, DX
+ADC CLC, DX
+JGE label1
+JGE lmao
+JMP elfly
+JMP label2
+JNLE oc
+JNLE lablel3
+LOOPE boosted
+LOOPE label4
 ends

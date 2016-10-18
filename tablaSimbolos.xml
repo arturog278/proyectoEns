@@ -4,13 +4,20 @@
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="simbolo">
+     <string>0</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
+    <void property="simbolo">
      <string>variable1</string>
     </void>
     <void property="tamaño">
      <string>b</string>
     </void>
     <void property="tipo">
-     <string>dec</string>
+     <string>var</string>
     </void>
     <void property="valor">
      <string>10</string>
@@ -26,10 +33,26 @@
      <string>w</string>
     </void>
     <void property="tipo">
-     <string>hex</string>
+     <string>var</string>
     </void>
     <void property="valor">
      <string>5000H</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
+    <void property="simbolo">
+     <string>variable6</string>
+    </void>
+    <void property="tamaño">
+     <string>b</string>
+    </void>
+    <void property="tipo">
+     <string>var</string>
+    </void>
+    <void property="valor">
+     <string>&quot;HOLA&quot;</string>
     </void>
    </object>
   </void>
@@ -42,7 +65,7 @@
      <string>w</string>
     </void>
     <void property="tipo">
-     <string>dec</string>
+     <string>var</string>
     </void>
     <void property="valor">
      <string>30</string>
@@ -58,7 +81,7 @@
      <string>b</string>
     </void>
     <void property="tipo">
-     <string>dec</string>
+     <string>var</string>
     </void>
     <void property="valor">
      <string>70</string>
@@ -74,7 +97,7 @@
      <string>b</string>
     </void>
     <void property="tipo">
-     <string>hex</string>
+     <string>var</string>
     </void>
     <void property="valor">
      <string>0AAh</string>
@@ -90,7 +113,7 @@
      <string>b</string>
     </void>
     <void property="tipo">
-     <string>dec</string>
+     <string>var</string>
     </void>
     <void property="valor">
      <string>5</string>
@@ -106,10 +129,50 @@
      <string>w</string>
     </void>
     <void property="tipo">
-     <string>dec</string>
+     <string>equ</string>
     </void>
     <void property="valor">
      <string>6060</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
+    <void property="simbolo">
+     <string>label1</string>
+    </void>
+    <void property="tipo">
+     <string>label</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
+    <void property="simbolo">
+     <string>label2</string>
+    </void>
+    <void property="tipo">
+     <string>label</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
+    <void property="simbolo">
+     <string>label3</string>
+    </void>
+    <void property="tipo">
+     <string>label</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
+    <void property="simbolo">
+     <string>label4</string>
+    </void>
+    <void property="tipo">
+     <string>label</string>
     </void>
    </object>
   </void>

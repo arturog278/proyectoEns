@@ -14,23 +14,26 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import mx.uaemex.fi.ens.fase_2.Identificador;
+import mx.uaemex.fi.ens.fase_4.Fase_4;
 
 public class Fase_3 {
 	private Identificador id;
 	private BufferedReader br;
 	private BufferedWriter bw;
 	private File archSalida;
-	private XMLEncoder encoder;
-	private Vector<Simbolo> simbolos;
+	private SimboloManager simMan;
 	private int segActual;
+	private Fase_4 fase4;
 
 	public Fase_3(File archEntrada) throws Exception {
-		this.archSalida = new File("resultadoFase3.txt");
+		this.simMan = new SimboloManager();
+		this.simMan.delete();
+		this.archSalida = new File("resultadoFase3y4.txt");
 		this.bw = new BufferedWriter(new FileWriter(this.archSalida));
 		this.br = new BufferedReader(new FileReader(archEntrada));
 		this.segActual = 0;
+		this.fase4 = new Fase_4();
 		this.id = new Identificador();
-		this.simbolos = new Vector<Simbolo>();
 		String strLinea ="";
 		int aux = 0;
 		while((strLinea = br.readLine()) != null){
@@ -46,15 +49,12 @@ public class Fase_3 {
 					this.checkLineStack(strLinea);
 					break;
 				case 3:
-					this.bw.write(strLinea+" \"No identificado\""+"\n");
+					this.bw.write(this.fase4.CheckLineCode(strLinea));
 					break;
 				}
 			}
 		}
 		bw.close();
-		this.encoder =  new XMLEncoder(new BufferedOutputStream(new FileOutputStream("tablaSimbolos.xml")));
-		this.encoder.writeObject(this.simbolos);
-		this.encoder.close();
 	}
 	
 	private void checkLineData(String strLinea) throws Exception{
@@ -70,13 +70,13 @@ public class Fase_3 {
 					if(vecGroup[3]==""){
 						if(this.id.esConsByte(vecGroup[5])!=-1 && this.id.esConsByte(vecGroup[2])==1){
 							this.bw.write(strLinea+" Correcto\n");
-							this.addSimbolo(vecGroup[0],this.tipoCons(vecGroup[5]) , vecGroup[5], "b");
+							this.addSimbolo(vecGroup[0],"var" , vecGroup[5], "b");
 						}else{
 							this.bw.write(strLinea+" Incorrecto, se esperaba una constante tamaño byte en el dup\n");
 						}
 					}else{
 						this.bw.write(strLinea+" Correcto\n");
-						this.addSimbolo(vecGroup[0],this.tipoCons(vecGroup[2]) , vecGroup[2], "b");
+						this.addSimbolo(vecGroup[0],"var" , vecGroup[2], "b");
 					}
 				}else{
 					this.bw.write(strLinea+" Incorrecto, se esperaba una constante tamaño byte\n");
@@ -86,13 +86,13 @@ public class Fase_3 {
 					if(vecGroup[3]==""){
 						if(this.id.esConsWord(vecGroup[5])==1 && this.id.esConsWord(vecGroup[2])==1){
 							this.bw.write(strLinea+" Correcto\n");
-							this.addSimbolo(vecGroup[0],this.tipoCons(vecGroup[5]) , vecGroup[5], "w");
+							this.addSimbolo(vecGroup[0],"var" , vecGroup[5], "w");
 						}else{
 							this.bw.write(strLinea+" Incorrecto, se esperaba una constante tamaño word en el dup\n");
 						}
 					}else{
 						this.bw.write(strLinea+" Correcto\n");
-						this.addSimbolo(vecGroup[0],this.tipoCons(vecGroup[2]) , vecGroup[2], "w");
+						this.addSimbolo(vecGroup[0],"var" , vecGroup[2], "w");
 					}
 				}else{
 					this.bw.write(strLinea+" Incorrecto, se esperaba una constante numerica tamaño word\n");
@@ -101,7 +101,7 @@ public class Fase_3 {
 				if(this.id.esConsWord(vecGroup[2])==1){
 					if(vecGroup[3].equals("")){
 						this.bw.write(strLinea+" Correcto\n");
-						this.addSimbolo(vecGroup[0],this.tipoCons(vecGroup[2]) , vecGroup[2], "w");
+						this.addSimbolo(vecGroup[0],"equ", vecGroup[2], "w");
 					}else{
 						this.bw.write(strLinea+" Incorrecto, no se esperaba nada despues de la constante\n");
 					}
@@ -115,20 +115,9 @@ public class Fase_3 {
 		
 	}
 	
-	private String tipoCons(String obj){
-		if(this.id.esConsBin(obj)){
-			return "bin";
-		}else if(this.id.esConsDec(obj)){
-			return "dec";
-		}else if(this.id.esConsHexa(obj)){
-			return "hex";
-		}
-		return "str";
-	}
-	
-	private void addSimbolo(String s,String ti,String v,String ta){
+	private void addSimbolo(String s,String ti,String v,String ta) throws Exception{
 		Simbolo sim = new Simbolo(s,ti,v,ta);
-		this.simbolos.add(sim);
+		this.simMan.addSimbolo(sim);
 	}
 	
 	private void checkLineStack(String strLinea) throws Exception{

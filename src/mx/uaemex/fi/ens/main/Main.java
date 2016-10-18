@@ -16,7 +16,7 @@ public class Main {
         try {
         	Desplegar desp;
 			Fase_1 fase1 = new Fase_1(entradaTeclado);
-			Fase_2 fase2 = new Fase_2(fase1.getArchSalida());
+			//Fase_2 fase2 = new Fase_2(fase1.getArchSalida());
 			Fase_3 fase3 = new Fase_3(fase1.getArchSalida());
 			desp = new Desplegar(fase3.getArchSalida());
 		} catch (Exception e) {			

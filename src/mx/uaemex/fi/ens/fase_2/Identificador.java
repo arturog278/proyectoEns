@@ -4,16 +4,63 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import mx.uaemex.fi.ens.fase_3.SimboloManager;
+
 
 public class Identificador {
 	private final String[] instruc = {"CLC","INTO","PUSHA","PUSHF","IMUL","POP","OR","ADC","JGE","JMP","JNLE","LOOPE"};
-	private final String[] reg = {"AL","AH","BL","BH","CL","CH","DL","DH","AX","BX","CX","DX","SI","DI","SP","BP","SS","CS","DS","ES"};
+	private final String[] reg16 = {"AX","BX","CX","DX","SI","DI","SP","BP"};
+	private final String[] regS = {"SS","CS","DS","ES"};
+	private final String[] reg8 = {"AL","AH","BL","BH","CL","CH","DL","DH",};
+	private final String[] regMem = {"BX","BP","DI","SI"};
 	private final String[] pseudo = {"Data Segment","Stack Segment","Code Segment","ENDS","DB","DW","EQU","DUP","BYTE PTR","WORD PTR"};
 	private final char[] hexa = {'A','B','C','D','E','F'};
+	private SimboloManager simMan;
 	
 	
-	public Identificador() {
-		
+	public Identificador() throws Exception {
+		this.simMan = new SimboloManager();
+	}
+	
+	public boolean esMemoria(String obj) throws Exception{
+		Pattern pat = Pattern.compile("^(\\[\\s*(\\w+)\\s*\\+\\s*(\\w+)\\s*\\+(\\w+)\\s*\\]|\\[\\s*(\\w+)\\s*\\+\\s*(\\w+)\\s*\\]|\\[\\s*(\\w+)\\s*\\])$");; 
+		Matcher mat = pat.matcher(obj);
+		if(mat.find()){
+			if(mat.group(2)!=null){
+				for(String s:this.regMem){
+					if(s.equalsIgnoreCase(mat.group(2))||this.esConsByte(mat.group(2))==1||this.esConsWord(mat.group(2))==1){
+						for(String s2:this.regMem){
+							if(s2.equalsIgnoreCase(mat.group(3))||this.esConsByte(mat.group(3))==1||this.esConsWord(mat.group(3))==1){
+								for(String s3:this.regMem){
+									if(s3.equalsIgnoreCase(mat.group(4))||this.esConsByte(mat.group(4))==1||this.esConsWord(mat.group(4))==1){
+										return true;
+									}
+								}
+							}
+						}
+					}
+				}
+			}else if(mat.group(5)!=null){
+				for(String s:this.regMem){
+					if(s.equalsIgnoreCase(mat.group(5))||this.esConsByte(mat.group(5))==1||this.esConsWord(mat.group(5))==1){
+						for(String s2:this.regMem){
+							if(s2.equalsIgnoreCase(mat.group(6))||this.esConsByte(mat.group(6))==1||this.esConsWord(mat.group(6))==1){
+								return true;
+							}
+						}
+					}
+				}
+			}else{
+				for(String s:this.regMem){
+					if(s.equalsIgnoreCase(mat.group(7))||this.esConsByte(mat.group(7))==1||this.esConsWord(mat.group(7))==1){
+						return true;
+					}					
+				}
+			}
+		}else if(this.simMan.findSimbolo(obj)==1){
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean esInstruccion(String obj){
@@ -49,9 +96,23 @@ public class Identificador {
 			return -1;
 	}
 	
-	public boolean esRegistro(String obj){
-		for(int i=0;i<this.reg.length;i++){
-			if(this.reg[i].equalsIgnoreCase(obj)){
+	public int esRegistro(String obj){
+		for(int i=0;i<this.reg8.length;i++){
+			if(this.reg8[i].equalsIgnoreCase(obj)){
+				return 1;
+			}
+		}
+		for(int i=0;i<this.reg16.length;i++){
+			if(this.reg16[i].equalsIgnoreCase(obj)){
+				return 2;
+			}
+		}
+		return -1;
+	}
+	
+	public boolean esRegistroS(String obj){
+		for(int i=0;i<this.regS.length;i++){
+			if(this.regS[i].equalsIgnoreCase(obj)){
 				return true;
 			}
 		}
@@ -157,10 +218,19 @@ public class Identificador {
 			 if(deci>-127 && deci<256){
 				 return 1;
 			 }
-		 }else if(this.esConsString(obj) && obj.length()==3){
+		 }else if(this.esConsString(obj)){
 			 return 2;
 		 }
 		 return -1;		 
+	 }
+	 
+	 public int esConsNumBoW(String obj){
+		 if(this.esConsByte(obj)==1){
+			 return 1;
+		 }else if(this.esConsWord(obj)==1){
+			 return 2;
+		 }
+		 return -1;
 	 }
 	 
 	 public int esConsWord(String obj){

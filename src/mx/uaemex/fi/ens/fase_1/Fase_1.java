@@ -46,6 +46,7 @@ public class Fase_1 {
         	temp2.deleteOnExit();
         	bw = new BufferedWriter(new FileWriter(temp2));
             BufferedReader bufferTemp = new BufferedReader(new FileReader(temp));
+            /*
             while ((strLinea = bufferTemp.readLine()) != null)   {           	
             	if (strLinea.equalsIgnoreCase("data segment") || strLinea.equalsIgnoreCase("code segment")|| strLinea.equalsIgnoreCase("stack segment")){
             		bw.write(strLinea+"\n");
@@ -123,6 +124,7 @@ public class Fase_1 {
             	}
             			
             	}  
+            	*/
             bw.close();
             this.creacionArchivo(temp);
             

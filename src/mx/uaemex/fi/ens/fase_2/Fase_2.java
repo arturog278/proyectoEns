@@ -25,7 +25,7 @@ public class Fase_2 {
 					this.bwSalida.write(strLinea+" \"Pseudoinstruccion-Instruccion\""+"\n");
 				}else if(this.id.esPseudo(strLineaDup)){
 					this.bwSalida.write(strLinea+" \"Pseudoinstruccion-Pseudoinstruccion\""+"\n");
-				}else if(this.id.esRegistro(strLineaDup)){
+				}else if(this.id.esRegistro(strLineaDup)!=-1){
 					this.bwSalida.write(strLinea+" \"Pseudoinstruccion-Registro\""+"\n");
 				}else if(this.id.esConsString(strLineaDup)){
 					this.bwSalida.write(strLinea+" \"Pseudoinstruccion-Constante Cadena\""+"\n");
@@ -46,7 +46,7 @@ public class Fase_2 {
 					this.bwSalida.write(strLinea+" \"Instruccion\""+"\n");
 				}else if(this.id.esPseudo(strLineaPar)){
 					this.bwSalida.write(strLinea+" \"Pseudoinstruccion\""+"\n");
-				}else if(this.id.esRegistro(strLineaPar)){
+				}else if(this.id.esRegistro(strLineaPar)!=-1){
 					this.bwSalida.write(strLinea+" \"Registro\""+"\n");
 				}else if(this.id.esConsString(strLineaPar)){
 					this.bwSalida.write(strLinea+" \"Constante Cadena\""+"\n");
@@ -66,7 +66,7 @@ public class Fase_2 {
 					this.bwSalida.write(strLinea+" \"Instruccion\""+"\n");
 				}else if(this.id.esPseudo(strLinea)){
 					this.bwSalida.write(strLinea+" \"Pseudoinstruccion\""+"\n");
-				}else if(this.id.esRegistro(strLinea)){
+				}else if(this.id.esRegistro(strLinea)!=-1){
 					this.bwSalida.write(strLinea+" \"Registro\""+"\n");
 				}else if(this.id.esConsString(strLinea)){
 					this.bwSalida.write(strLinea+" \"Constante Cadena\""+"\n");
