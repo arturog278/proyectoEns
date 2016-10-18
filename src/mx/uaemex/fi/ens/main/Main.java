@@ -19,6 +19,7 @@ public class Main {
 			//Fase_2 fase2 = new Fase_2(fase1.getArchSalida());
 			Fase_3 fase3 = new Fase_3(fase1.getArchSalida());
 			desp = new Desplegar(fase3.getArchSalida());
+			desp.DesplegarXML();
 		} catch (Exception e) {			
 	           System.err.println("Ocurrio un error: " + e.getMessage());
 		}

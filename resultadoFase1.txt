@@ -1,67 +1,47 @@
 data segment
-variableAAAAAAAA db 0
-variable1 db 10
-variable2 db 3000
-variable3 dw "HH"
-variable4 dw 5000H
-variable5 db amigo
-variable6 db "HOLA"
-variable7 dw 076879987h
-variable8 dw 30 dup (67)
-variable9 db 70 dup('A')
-variable10 db 0AAh dup(10)
-variable11 db 5 dup ("bueno")
-const1 equ 6060
-const2 equ 400000
+var1 db 046H
+var2 dw 2345
+var3 db 60 dup(0)
+var4 db 0347h dup(010h)
+var5 db "tres"
+var6 db 100 dup(' ')
+const7 equ 0
+ends
+stack segment
+dw 128 dup(0)
 ends
 code segment
 CLC
-CLC variable1
+CLC 56
+INTO BX
 INTO
-INTO variable4
-PUSHA AX
+PUSHA VAR1
 PUSHA
-PUSHF dup("lul")
-label1:
-IMUL AX
-IMUL variable 1
-IMUL variable11
-IMUL SS
+PUSHF 090H
+PUSHF
+ET1:
+IMUL VAR5
+IMUL 100
 POP DX
-POP SS
-label2:
-POP variable8
-POP const2
-POP "lul
-OR AX, DX
-OR AX, variable1
-OR variable4, DX
-OR variable1, 11
-OR AX, 53
-OR AX, SS
-OR SS, DXX
-OR AX, const1
-label3:
-OR 11, DX
-OR CLC, DX
-OR variable4, DX
-ADC AX, DX
-ADC AX, variable1
-ADC variable4, DX
-ADC variable1, 11
-ADC AX, 53
-ADC AX, SS
-ADC SS, DXX
-label4:
-ADC AX, const1
-ADC 11, DX
-ADC CLC, DX
-JGE label1
-JGE lmao
-JMP elfly
-JMP label2
-JNLE oc
-JNLE lablel3
-LOOPE boosted
-LOOPE label4
-ends
+POP VAR2,80
+ET2:
+OR DH,10101010b
+OR VAR5,AL
+OR SI,DL
+ADC DI,0CCH
+ADC VAR10,CL
+ADC [BX+060H],20
+ET3:
+JGE CONST7
+JGE ET1
+JMP 0100H
+JMP ET2
+ET4:
+JNLE DS
+JNLE ET3
+LOOPE
+LOOPE ET4
+MOV AX,BX
+NOT VAR4
+AAD
+ENDS

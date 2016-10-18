@@ -4,14 +4,23 @@
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="simbolo">
-     <string>0</string>
+     <string>Nombre</string>
+    </void>
+    <void property="tamaño">
+     <string>Tamaño</string>
+    </void>
+    <void property="tipo">
+     <string>Tipo</string>
+    </void>
+    <void property="valor">
+     <string>Valor</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="simbolo">
-     <string>variable1</string>
+     <string>var1</string>
     </void>
     <void property="tamaño">
      <string>b</string>
@@ -20,14 +29,14 @@
      <string>var</string>
     </void>
     <void property="valor">
-     <string>10</string>
+     <string>046H</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="simbolo">
-     <string>variable4</string>
+     <string>var2</string>
     </void>
     <void property="tamaño">
      <string>w</string>
@@ -36,14 +45,14 @@
      <string>var</string>
     </void>
     <void property="valor">
-     <string>5000H</string>
+     <string>2345</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="simbolo">
-     <string>variable6</string>
+     <string>var3</string>
     </void>
     <void property="tamaño">
      <string>b</string>
@@ -52,30 +61,14 @@
      <string>var</string>
     </void>
     <void property="valor">
-     <string>&quot;HOLA&quot;</string>
+     <string>60</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="simbolo">
-     <string>variable8</string>
-    </void>
-    <void property="tamaño">
-     <string>w</string>
-    </void>
-    <void property="tipo">
-     <string>var</string>
-    </void>
-    <void property="valor">
-     <string>30</string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
-    <void property="simbolo">
-     <string>variable9</string>
+     <string>var5</string>
     </void>
     <void property="tamaño">
      <string>b</string>
@@ -84,14 +77,14 @@
      <string>var</string>
     </void>
     <void property="valor">
-     <string>70</string>
+     <string>&quot;tres&quot;</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="simbolo">
-     <string>variable10</string>
+     <string>var6</string>
     </void>
     <void property="tamaño">
      <string>b</string>
@@ -100,30 +93,14 @@
      <string>var</string>
     </void>
     <void property="valor">
-     <string>0AAh</string>
+     <string>100</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="simbolo">
-     <string>variable11</string>
-    </void>
-    <void property="tamaño">
-     <string>b</string>
-    </void>
-    <void property="tipo">
-     <string>var</string>
-    </void>
-    <void property="valor">
-     <string>5</string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
-    <void property="simbolo">
-     <string>const1</string>
+     <string>const7</string>
     </void>
     <void property="tamaño">
      <string>w</string>
@@ -132,14 +109,14 @@
      <string>equ</string>
     </void>
     <void property="valor">
-     <string>6060</string>
+     <string>0</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="simbolo">
-     <string>label1</string>
+     <string>ET1</string>
     </void>
     <void property="tipo">
      <string>label</string>
@@ -149,7 +126,7 @@
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="simbolo">
-     <string>label2</string>
+     <string>ET2</string>
     </void>
     <void property="tipo">
      <string>label</string>
@@ -159,7 +136,7 @@
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="simbolo">
-     <string>label3</string>
+     <string>ET3</string>
     </void>
     <void property="tipo">
      <string>label</string>
@@ -169,7 +146,7 @@
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="simbolo">
-     <string>label4</string>
+     <string>ET4</string>
     </void>
     <void property="tipo">
      <string>label</string>

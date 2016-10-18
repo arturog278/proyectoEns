@@ -23,7 +23,7 @@ public class SimboloManager {
 		try{
 			this.simbolos = (Vector<Simbolo>) this.decoder.readObject();
 		}catch(Exception e){
-			Simbolo sim = new Simbolo("0",null,null,null);
+			Simbolo sim = new Simbolo("Nombre","Tipo","Valor","Tamaño");
 			this.simbolos.addElement(sim);
 			this.salva();
 		}
@@ -61,7 +61,7 @@ public class SimboloManager {
 		this.simbolos = (Vector<Simbolo>) this.decoder.readObject();
 		this.decoder.close();
 		for(Simbolo s:this.simbolos){
-			if(s.getSimbolo().contentEquals(obj)){
+			if(s.getSimbolo().equalsIgnoreCase(obj)){
 				if(s.getTipo().contentEquals("var")){
 					return 1;
 				}else if(s.getTipo().contentEquals("equ")){
