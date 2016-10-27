@@ -1,1 +1,4 @@
-java -jar proyectoEns.jar 
+@echo off
+java -jar proyectoEns.jar
+pause
+exit
