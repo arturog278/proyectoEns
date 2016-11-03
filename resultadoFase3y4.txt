@@ -1,47 +1,19 @@
 data segment Correcto
-var1 db 046H Correcto
-var2 dw 2345 Correcto
-var3 db 60 dup(0) Correcto
-var4 db 0347h dup(010h) Incorrecto, se esperaba una constante tamaño byte
-var5 db "tres" Correcto
-var6 db 100 dup(' ') Correcto
-const7 equ 0 Correcto
+variableAAAAAAAA db 0 Incorrecto, error de sintaxis
+variable1 db 10 Correcto
+variable2 db 3000 Incorrecto, se esperaba una constante tamaño byte
+variable3 dw "HH" Incorrecto, se esperaba una constante numerica tamaño word
+variable4 dw 5000H Correcto
+variable5 db amigo Incorrecto, se esperaba una constante tamaño byte
+variable6 db "HOLA" Correcto
+variable7 dw 076879987h Incorrecto, se esperaba una constante numerica tamaño word
+variable8 dw 30 dup (67) Correcto
+variable9 db 70 dup('A') Correcto
+variable10 db 0AAh dup(10) Correcto
+variable11 db 5 dup ("bueno") Correcto
+const1 equ 6060 Correcto
+const2 equ 400000 Incorrecto, se esperaba una constante numerica tamaño word
 ends Correcto
 stack segment Correcto
 dw 128 dup(0) Correcto
 ends Correcto
-code segment Correcto
-CLC Correcto
-CLC 56 Incorrecto, no lleva operandos
-INTO BX Incorrecto, no lleva operandos
-INTO Correcto
-PUSHA VAR1 Incorrecto, no lleva operandos
-PUSHA Correcto
-PUSHF 090H Incorrecto, no lleva operandos
-PUSHF Correcto
-ET1: Correcto
-IMUL VAR5 Correcto
-IMUL 100 Incorrecto, se esperaba un registro o memoria
-POP DX Correcto
-POP VAR2,80 Incorrecto, se esperaba un solo operando
-ET2: Correcto
-OR DH,10101010b Correcto
-OR VAR5,AL Correcto
-OR SI,DL Incorrecto, se esperaba registro, memoria o inmediato del mismo tamaño en el segundo operando
-ADC DI,0CCH Correcto
-ADC VAR10,CL Incorrecto, se esperaba registro o memoria del mismo tamaño en el primer operando
-ADC [BX+060H],20 Correcto
-ET3: Correcto
-JGE CONST7 Incorrecto, se esperaba etiqueta
-JGE ET1 Correcto
-JMP 0100H Incorrecto, se esperaba etiqueta
-JMP ET2 Correcto
-ET4: Correcto
-JNLE DS Incorrecto, se esperaba etiqueta
-JNLE ET3 Correcto
-LOOPE Incorrecto, se esperaba etiqueta
-LOOPE ET4 Correcto
-MOV AX,BX Incorrecto, instruccion no identificada
-NOT VAR4 Incorrecto, instruccion no identificada
-AAD Incorrecto, instruccion no identificada
-ENDS Correcto

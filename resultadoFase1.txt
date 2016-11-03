@@ -1,47 +1,19 @@
 data segment
-var1 db 046H
-var2 dw 2345
-var3 db 60 dup(0)
-var4 db 0347h dup(010h)
-var5 db "tres"
-var6 db 100 dup(' ')
-const7 equ 0
+variableAAAAAAAA db 0
+variable1 db 10
+variable2 db 3000
+variable3 dw "HH"
+variable4 dw 5000H
+variable5 db amigo
+variable6 db "HOLA"
+variable7 dw 076879987h
+variable8 dw 30 dup (67)
+variable9 db 70 dup('A')
+variable10 db 0AAh dup(10)
+variable11 db 5 dup ("bueno")
+const1 equ 6060
+const2 equ 400000
 ends
 stack segment
 dw 128 dup(0)
 ends
-code segment
-CLC
-CLC 56
-INTO BX
-INTO
-PUSHA VAR1
-PUSHA
-PUSHF 090H
-PUSHF
-ET1:
-IMUL VAR5
-IMUL 100
-POP DX
-POP VAR2,80
-ET2:
-OR DH,10101010b
-OR VAR5,AL
-OR SI,DL
-ADC DI,0CCH
-ADC VAR10,CL
-ADC [BX+060H],20
-ET3:
-JGE CONST7
-JGE ET1
-JMP 0100H
-JMP ET2
-ET4:
-JNLE DS
-JNLE ET3
-LOOPE
-LOOPE ET4
-MOV AX,BX
-NOT VAR4
-AAD
-ENDS

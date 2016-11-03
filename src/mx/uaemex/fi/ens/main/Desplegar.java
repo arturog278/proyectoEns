@@ -15,23 +15,26 @@ public class Desplegar {
 	private XMLDecoder decoder;
 	private Vector<Simbolo> simbolos;
 
-	public Desplegar(File arch) throws Exception {
-		BufferedReader br = new BufferedReader(new FileReader(arch));
-		String strLinea;
-		while((strLinea = br.readLine()) != null){
-			System.out.println(strLinea);
-		}
-		br.close();
+	public Desplegar(){
+		
 	}
 	
-	public void DesplegarXML() throws Exception{
+	public String DesplegarC(File arch) throws Exception{
+		BufferedReader br = new BufferedReader(new FileReader(arch));
+		String strLinea;
+		String contenido = "";
+		while((strLinea = br.readLine()) != null){
+			contenido =contenido+strLinea+"\n";
+		}
+		br.close();
+		return contenido;
+	}
+	
+	public Vector<Simbolo> DesplegarXML() throws Exception{
 		this.decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("tablaSimbolos.xml")));
 		this.simbolos = (Vector<Simbolo>) this.decoder.readObject();
 		this.decoder.close();
-		System.out.println("\n");
-		for(Simbolo s:this.simbolos){
-			System.out.println(s.getSimbolo()+"\t"+s.getTamaño()+"\t"+s.getTipo()+"\t"+s.getValor()+"\n");
-		}
+		return this.simbolos;
 	}
 
 }
