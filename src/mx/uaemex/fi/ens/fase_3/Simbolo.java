@@ -7,16 +7,26 @@ public class Simbolo implements Serializable {
 	private String tipo;
 	private String valor;
 	private String tamaño;
+	private String direccion;
 	
 	public Simbolo(){
 		
 	}
 
-	public Simbolo(String s, String ti, String v, String ta) {
+	public Simbolo(String s, String ti, String v, String ta, String dir) {
 		this.simbolo = s;
 		this.tipo = ti;
 		this.valor = v;
 		this.tamaño = ta;
+		this.direccion = dir;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
 	public String getSimbolo() {

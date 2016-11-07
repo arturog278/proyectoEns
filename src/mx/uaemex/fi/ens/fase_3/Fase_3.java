@@ -15,6 +15,8 @@ import java.util.regex.Pattern;
 
 import mx.uaemex.fi.ens.fase_2.Identificador;
 import mx.uaemex.fi.ens.fase_4.Fase_4;
+import mx.uaemex.fi.ens.fase_5.Contador;
+import mx.uaemex.fi.ens.fase_5.Fase_5;
 
 public class Fase_3 {
 	private Identificador id;
@@ -24,6 +26,9 @@ public class Fase_3 {
 	private SimboloManager simMan;
 	private int segActual;
 	private Fase_4 fase4;
+	private Fase_5 fase5;
+	private Contador count;
+	private String cp;
 
 	public Fase_3(File archEntrada) throws Exception {
 		this.simMan = new SimboloManager();
@@ -33,12 +38,18 @@ public class Fase_3 {
 		this.br = new BufferedReader(new FileReader(archEntrada));
 		this.segActual = 0;
 		this.fase4 = new Fase_4();
+		this.fase5 = new Fase_5();
 		this.id = new Identificador();
+		this.cp = "0000";
+		this.count = new Contador();
 		String strLinea ="";
 		int aux = 0;
 		while((strLinea = br.readLine()) != null){
 			if((aux = this.id.idSegment(strLinea))!=-1){
-				bw.write(strLinea+" Correcto\n");
+				bw.write(this.cp+" "+strLinea+" Correcto\n");
+				if(aux != 0){
+					this.cp = "0000";
+				}
 				this.segActual=aux;
 			}else{
 				switch(this.segActual){
@@ -49,7 +60,8 @@ public class Fase_3 {
 					this.checkLineStack(strLinea);
 					break;
 				case 3:
-					this.bw.write(this.fase4.CheckLineCode(strLinea));
+					this.bw.write(this.fase4.CheckLineCode(strLinea,this.cp));
+					this.cp = this.fase4.getCp();
 					break;
 				}
 			}
@@ -66,57 +78,62 @@ public class Fase_3 {
 				vecGroup[i] = mat.group(i+1);
 			}
 			if(vecGroup[1].equalsIgnoreCase("db")){
-				if(this.id.esConsByte(vecGroup[2])!=-1){
-					if(vecGroup[3]==""){
+				if(this.id.esConsByte(vecGroup[2])!=-1||this.id.esConsString(vecGroup[2])){
+					if(vecGroup[4]!=null){
 						if(this.id.esConsByte(vecGroup[5])!=-1 && this.id.esConsByte(vecGroup[2])==1){
-							this.bw.write(strLinea+" Correcto\n");
-							this.addSimbolo(vecGroup[0],"var" , vecGroup[5], "b");
+							this.bw.write(this.cp+" "+strLinea+" Correcto\n");
+							this.addSimbolo(vecGroup[0],"var" , vecGroup[5], "b",this.cp);
+							this.cp = this.count.suma(this.cp,this.fase5.calcularTamañoDS(vecGroup));
 						}else{
-							this.bw.write(strLinea+" Incorrecto, se esperaba una constante tamaño byte en el dup\n");
+							this.bw.write(this.cp+" "+strLinea+" Incorrecto, se esperaba una constante tamaño byte en el dup\n");
 						}
 					}else{
-						this.bw.write(strLinea+" Correcto\n");
-						this.addSimbolo(vecGroup[0],"var" , vecGroup[2], "b");
+						this.bw.write(this.cp+" "+strLinea+" Correcto\n");
+						this.addSimbolo(vecGroup[0],"var" , vecGroup[2], "b",this.cp);
+						this.cp = this.count.suma(this.cp,this.fase5.calcularTamañoDS(vecGroup));
 					}
 				}else{
-					this.bw.write(strLinea+" Incorrecto, se esperaba una constante tamaño byte\n");
+					this.bw.write(this.cp+" "+strLinea+" Incorrecto, se esperaba una constante tamaño byte\n");
 				}
 			}else if(vecGroup[1].equalsIgnoreCase("dw")){
 				if(this.id.esConsWord(vecGroup[2])==1){
-					if(vecGroup[3]==""){
+					if(vecGroup[4]!=null){
 						if(this.id.esConsWord(vecGroup[5])==1 && this.id.esConsWord(vecGroup[2])==1){
-							this.bw.write(strLinea+" Correcto\n");
-							this.addSimbolo(vecGroup[0],"var" , vecGroup[5], "w");
+							this.bw.write(this.cp+" "+strLinea+" Correcto\n");
+							this.addSimbolo(vecGroup[0],"var" , vecGroup[5], "w",this.cp);
+							this.cp = this.count.suma(this.cp,this.fase5.calcularTamañoDS(vecGroup));
 						}else{
-							this.bw.write(strLinea+" Incorrecto, se esperaba una constante tamaño word en el dup\n");
+							this.bw.write(this.cp+" "+strLinea+" Incorrecto, se esperaba una constante tamaño word en el dup\n");
 						}
 					}else{
-						this.bw.write(strLinea+" Correcto\n");
-						this.addSimbolo(vecGroup[0],"var" , vecGroup[2], "w");
+						this.bw.write(this.cp+" "+strLinea+" Correcto\n");
+						this.addSimbolo(vecGroup[0],"var" , vecGroup[2], "w",this.cp);
+						this.cp = this.count.suma(this.cp,this.fase5.calcularTamañoDS(vecGroup));
 					}
 				}else{
-					this.bw.write(strLinea+" Incorrecto, se esperaba una constante numerica tamaño word\n");
+					this.bw.write(this.cp+" "+strLinea+" Incorrecto, se esperaba una constante numerica tamaño word\n");
 				}
 			}else if(vecGroup[1].equalsIgnoreCase("equ")){
 				if(this.id.esConsWord(vecGroup[2])==1){
 					if(vecGroup[3].equals("")){
-						this.bw.write(strLinea+" Correcto\n");
-						this.addSimbolo(vecGroup[0],"equ", vecGroup[2], "w");
+						this.bw.write(this.cp+" "+strLinea+" Correcto\n");
+						this.addSimbolo(vecGroup[0],"equ", vecGroup[2], "w",null);
+						this.cp = this.count.suma(this.cp,this.fase5.calcularTamañoDS(vecGroup));
 					}else{
-						this.bw.write(strLinea+" Incorrecto, no se esperaba nada despues de la constante\n");
+						this.bw.write(this.cp+" "+strLinea+" Incorrecto, no se esperaba nada despues de la constante\n");
 					}
 				}else{
-					this.bw.write(strLinea+" Incorrecto, se esperaba una constante numerica tamaño word\n");
+					this.bw.write(this.cp+" "+strLinea+" Incorrecto, se esperaba una constante numerica tamaño word\n");
 				}
 			}			
 		}else{
-			this.bw.write(strLinea+" Incorrecto, error de sintaxis\n");
+			this.bw.write(this.cp+" "+strLinea+" Incorrecto, error de sintaxis\n");
 		}
 		
 	}
 	
-	private void addSimbolo(String s,String ti,String v,String ta) throws Exception{
-		Simbolo sim = new Simbolo(s,ti,v,ta);
+	private void addSimbolo(String s,String ti,String v,String ta,String dir) throws Exception{
+		Simbolo sim = new Simbolo(s,ti,v,ta,dir);
 		this.simMan.addSimbolo(sim);
 	}
 	
@@ -127,12 +144,13 @@ public class Fase_3 {
 			String cons1 = mat.group(1);
 			String cons2 = mat.group(2);
 			if(this.id.esConsWord(cons1)==1 && this.id.esConsWord(cons2)==1){
-				bw.write(strLinea+" Correcto\n");
+				bw.write(this.cp+" "+strLinea+" Correcto\n");
+				this.cp = this.count.suma(this.cp,this.fase5.calcularTamañoSS(cons1));				
 			}else{
-				bw.write(strLinea+" Incorrecto, se esperaba una constante numerica palabra");
+				bw.write(this.cp+" "+strLinea+" Incorrecto, se esperaba una constante numerica palabra");
 			}
 		}else{
-			bw.write(strLinea+" Incorrecto, error de sintaxis");
+			bw.write(this.cp+" "+strLinea+" Incorrecto, error de sintaxis");
 		}
 	}
 	

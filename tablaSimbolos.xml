@@ -3,6 +3,9 @@
  <object class="java.util.Vector">
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
+    <void property="direccion">
+     <string>Direccion</string>
+    </void>
     <void property="simbolo">
      <string>Nombre</string>
     </void>
@@ -19,8 +22,11 @@
   </void>
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
+    <void property="direccion">
+     <string>0000</string>
+    </void>
     <void property="simbolo">
-     <string>variable1</string>
+     <string>var1</string>
     </void>
     <void property="tamaño">
      <string>b</string>
@@ -29,14 +35,17 @@
      <string>var</string>
     </void>
     <void property="valor">
-     <string>10</string>
+     <string>046H</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
+    <void property="direccion">
+     <string>0001</string>
+    </void>
     <void property="simbolo">
-     <string>variable4</string>
+     <string>var2</string>
     </void>
     <void property="tamaño">
      <string>w</string>
@@ -45,14 +54,17 @@
      <string>var</string>
     </void>
     <void property="valor">
-     <string>5000H</string>
+     <string>2345</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
+    <void property="direccion">
+     <string>0003</string>
+    </void>
     <void property="simbolo">
-     <string>variable6</string>
+     <string>var3</string>
     </void>
     <void property="tamaño">
      <string>b</string>
@@ -61,30 +73,17 @@
      <string>var</string>
     </void>
     <void property="valor">
-     <string>&quot;HOLA&quot;</string>
+     <string>0</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
+    <void property="direccion">
+     <string>003F</string>
+    </void>
     <void property="simbolo">
-     <string>variable8</string>
-    </void>
-    <void property="tamaño">
-     <string>w</string>
-    </void>
-    <void property="tipo">
-     <string>var</string>
-    </void>
-    <void property="valor">
-     <string>30</string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
-    <void property="simbolo">
-     <string>variable9</string>
+     <string>var5</string>
     </void>
     <void property="tamaño">
      <string>b</string>
@@ -93,14 +92,17 @@
      <string>var</string>
     </void>
     <void property="valor">
-     <string>70</string>
+     <string>&quot;tres&quot;</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
+    <void property="direccion">
+     <string>0043</string>
+    </void>
     <void property="simbolo">
-     <string>variable10</string>
+     <string>var6</string>
     </void>
     <void property="tamaño">
      <string>b</string>
@@ -109,30 +111,14 @@
      <string>var</string>
     </void>
     <void property="valor">
-     <string>0AAh</string>
+     <string>&apos; &apos;</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="simbolo">
-     <string>variable11</string>
-    </void>
-    <void property="tamaño">
-     <string>b</string>
-    </void>
-    <void property="tipo">
-     <string>var</string>
-    </void>
-    <void property="valor">
-     <string>5</string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
-    <void property="simbolo">
-     <string>const1</string>
+     <string>const7</string>
     </void>
     <void property="tamaño">
      <string>w</string>
@@ -141,7 +127,59 @@
      <string>equ</string>
     </void>
     <void property="valor">
-     <string>6060</string>
+     <string>0</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
+    <void property="direccion">
+     <string>0004</string>
+    </void>
+    <void property="simbolo">
+     <string>ET1</string>
+    </void>
+    <void property="tipo">
+     <string>label</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
+    <void property="direccion">
+     <string>0008</string>
+    </void>
+    <void property="simbolo">
+     <string>ET2</string>
+    </void>
+    <void property="tipo">
+     <string>label</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
+    <void property="direccion">
+     <string>0015</string>
+    </void>
+    <void property="simbolo">
+     <string>ET3</string>
+    </void>
+    <void property="tipo">
+     <string>label</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
+    <void property="direccion">
+     <string>001C</string>
+    </void>
+    <void property="simbolo">
+     <string>ET4</string>
+    </void>
+    <void property="tipo">
+     <string>label</string>
     </void>
    </object>
   </void>

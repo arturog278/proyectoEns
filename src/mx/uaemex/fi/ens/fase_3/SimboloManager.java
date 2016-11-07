@@ -23,7 +23,7 @@ public class SimboloManager {
 		try{
 			this.simbolos = (Vector<Simbolo>) this.decoder.readObject();
 		}catch(Exception e){
-			Simbolo sim = new Simbolo("Nombre","Tipo","Valor","Tamaño");
+			Simbolo sim = new Simbolo("Nombre","Tipo","Valor","Tamaño","Direccion");
 			this.simbolos.addElement(sim);
 			this.salva();
 		}
@@ -68,6 +68,22 @@ public class SimboloManager {
 					return 2;
 				}else if(s.getTipo().contentEquals("label")){
 					return 3;
+				}
+			}
+		}
+		return -1;
+	}
+	
+	public int getTamaño(String obj)throws Exception{
+		this.decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("tablaSimbolos.xml")));
+		this.simbolos = (Vector<Simbolo>) this.decoder.readObject();
+		this.decoder.close();
+		for(Simbolo s:this.simbolos){
+			if(s.getSimbolo().equalsIgnoreCase(obj)){
+				if(s.getTamaño().contentEquals("b")){
+					return 1;
+				}else if(s.getTamaño().contentEquals("w")){
+					return 2;
 				}
 			}
 		}

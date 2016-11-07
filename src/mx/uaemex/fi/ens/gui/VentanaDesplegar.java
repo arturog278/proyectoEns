@@ -1,5 +1,6 @@
 package mx.uaemex.fi.ens.gui;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GraphicsConfiguration;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
@@ -42,7 +43,7 @@ public class VentanaDesplegar extends JFrame implements ActionListener {
 		this.btnRegresar.setActionCommand("Regresar");
 		this.btnSalir = new JButton("Salir");
 		this.btnSalir.addActionListener(this);
-		this.btnSalir.setActionCommand("Salir");
+		this.btnSalir.setActionCommand("Salir");		
 		this.panelInf.add(this.btnSalir);
 		this.panelInf.add(this.btnRegresar);
 
@@ -57,10 +58,12 @@ public class VentanaDesplegar extends JFrame implements ActionListener {
 		this.scrlPane = new JScrollPane();
 		this.txtSalida.setText(contenido);
 		this.scrlPane.setViewportView(this.txtSalida);
-		String[] columnNames = {"Nombre","Tipo","Valor","Tamaño"};
+		String[] columnNames = {"Nombre","Tipo","Valor","Tamaño","Direccion"};
 		String[][] rowData = obtenerSimbolos(simbolos);
 
 		this.tableSalida = new JTable(rowData,columnNames);
+		this.tableSalida.setShowGrid(true);
+		this.tableSalida.setGridColor(Color.BLACK);
 		this.panelCent.add(this.scrlPane);
 		this.panelCent.add(this.tableSalida);
 		
@@ -77,12 +80,13 @@ public class VentanaDesplegar extends JFrame implements ActionListener {
 	}
 	
 	private String[][] obtenerSimbolos(Vector<Simbolo> sim){
-		String[][] simbolos = new String[sim.size()][4];
+		String[][] simbolos = new String[sim.size()][5];
 		for(int i=0;i<sim.size();i++){
 			simbolos[i][0]=sim.elementAt(i).getSimbolo();
 			simbolos[i][1]=sim.elementAt(i).getTipo();
 			simbolos[i][2]=sim.elementAt(i).getValor();
 			simbolos[i][3]=sim.elementAt(i).getTamaño();
+			simbolos[i][4]=sim.elementAt(i).getDireccion();
 		}
 		return simbolos;
 	}

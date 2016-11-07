@@ -23,15 +23,23 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 	private JButton btnEjecutar;
 	private JButton btnSalir;
 	private JLabel lblIngrese;
-	private JPanel panel;
+	private JPanel panelSup;
+	private JButton btnLimpiar;
+	private JPanel panelInf;
 
 	public VentanaPrincipal() {
 		super("Proyecto Ensamblador");
 		this.btnEjecutar = new JButton("Ejecutar");
 		this.btnSalir = new JButton("Salir");
 		this.txtEntrada = new JTextField();
+		this.txtEntrada.addActionListener(this);
+		this.txtEntrada.setActionCommand("Ejecutar");
+		this.btnLimpiar = new JButton("Limpiar");
+		this.btnLimpiar.addActionListener(this);
+		this.btnLimpiar.setActionCommand("Limpiar");
 		this.lblIngrese = new JLabel("Ingrese el nombre del programa");
-		this.panel = new JPanel(new GridLayout(2,2));
+		this.panelSup = new JPanel(new GridLayout(1,2));
+		this.panelInf = new JPanel(new GridLayout(1,3));
 		
 		this.btnEjecutar.addActionListener(this);
 		this.btnEjecutar.setActionCommand("Ejecutar");
@@ -39,17 +47,23 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 		this.btnSalir.setActionCommand("Salir");
 		this.txtEntrada.setSize(50, 100);		
 		
-		this.panel.add(this.lblIngrese);
-		this.panel.add(this.txtEntrada);
-		this.panel.add(this.btnEjecutar);
-		this.panel.add(this.btnSalir);		
+		this.panelSup.add(this.lblIngrese);
+		this.panelSup.add(this.txtEntrada);
 		
-		this.panel.setBorder(new EmptyBorder(10,10,10,10));
+		this.panelInf.add(this.btnEjecutar);
+		this.panelInf.add(this.btnSalir);
+		this.panelInf.add(this.btnLimpiar);
 		
-		this.getContentPane().add(this.panel, BorderLayout.CENTER);
+		this.panelSup.setBorder(new EmptyBorder(10,10,10,10));
+		this.panelInf.setBorder(new EmptyBorder(10,10,10,10));
+
+		
+		this.getContentPane().add(this.panelSup, BorderLayout.NORTH);
+		this.getContentPane().add(this.panelInf, BorderLayout.SOUTH);
+
 				
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setBounds(100,100,500,150);
+		this.setBounds(100,100,480,120);
 	}
 
 	@Override
@@ -67,11 +81,15 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 				VentanaDesplegar v2 = new VentanaDesplegar(nombre,desp.DesplegarC(fase3.getArchSalida()),desp.DesplegarXML());
 				v2.setVisible(true);
 			} catch (Exception ex) {		
-				JOptionPane.showMessageDialog(null, "Ocurrio un error: "+ ex.getMessage());		   
+				JOptionPane.showMessageDialog(null, "Ocurrio un error: "+ ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);		   
 			}			
 			break;
 		case "Salir":
 			System.exit(0);
+			break;
+		case "Limpiar":
+			this.txtEntrada.setText("");
+			this.txtEntrada.requestFocus();
 			break;
 		}
 	}

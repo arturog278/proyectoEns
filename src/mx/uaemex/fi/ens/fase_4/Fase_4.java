@@ -9,8 +9,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import mx.uaemex.fi.ens.fase_2.Identificador;
+import mx.uaemex.fi.ens.fase_3.Fase_3;
 import mx.uaemex.fi.ens.fase_3.Simbolo;
 import mx.uaemex.fi.ens.fase_3.SimboloManager;
+import mx.uaemex.fi.ens.fase_5.Contador;
+import mx.uaemex.fi.ens.fase_5.Fase_5;
 
 public class Fase_4 {
 	private Pattern pat1;
@@ -28,6 +31,9 @@ public class Fase_4 {
 	private Pattern pat13;
 	private SimboloManager simMan;
 	private Identificador id;
+	private Contador count;
+	private Fase_5 fase5;
+	private String cp;
 
 	public Fase_4() throws Exception {
 		pat1 = Pattern.compile("^[cC][lL][cC]\\s*([\\w|\\+|\\[|\\]]*)\\x2C?(.*)$");
@@ -45,141 +51,158 @@ public class Fase_4 {
 		pat13 = Pattern.compile("^(\\p{Alpha}\\w{0,9})\\x3A$");	
 		this.simMan = new SimboloManager();
 		this.id = new Identificador();
+		this.count = new Contador();
+		this.fase5 = new Fase_5();
 	}
 	
-	public String CheckLineCode(String strLinea) throws Exception{
+	public String CheckLineCode(String strLinea,String cpA) throws Exception{
+		this.cp = cpA;
 		Matcher mat = pat1.matcher(strLinea);
 		int aux;
 		if(mat.find()){
 			if(mat.group(1).equals("")){
-				return strLinea+" Correcto\n";
+				this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(1, null, null));
+				return cpA+" "+strLinea+" Correcto\n";
 			}else{
-				return strLinea+" Incorrecto, no lleva operandos\n";
+				return cpA+" "+strLinea+" Incorrecto, no lleva operandos\n";
 			}
 		}else{
 			mat = pat2.matcher(strLinea);
 			if(mat.find()){
 				if(mat.group(1).equals("")){
-					return strLinea+" Correcto\n";
+					this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(2, null, null));
+					return cpA+" "+strLinea+" Correcto\n";
 				}else{
-					return strLinea+" Incorrecto, no lleva operandos\n";
+					return cpA+" "+strLinea+" Incorrecto, no lleva operandos\n";
 				}
 			}else{
 				mat = pat3.matcher(strLinea);
 				if(mat.find()){
 					if(mat.group(1).equals("")){
-						return strLinea+" Correcto\n";
+						this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(3, null, null));
+						return cpA+" "+strLinea+" Correcto\n";
 					}else{
-						return strLinea+" Incorrecto, no lleva operandos\n";
+						return cpA+" "+strLinea+" Incorrecto, no lleva operandos\n";
 					}
 				}else{
 					mat = pat4.matcher(strLinea);
 					if(mat.find()){
 						if(mat.group(1).equals("")){
-							return strLinea+" Correcto\n";
+							this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(4, null, null));
+							return cpA+" "+strLinea+" Correcto\n";
 						}else{
-							return strLinea+" Incorrecto, no lleva operandos\n";
+							return cpA+" "+strLinea+" Incorrecto, no lleva operandos\n";
 						}
 					}else{
 						mat = pat5.matcher(strLinea);
 						if(mat.find()){							
 							if(this.id.esRegistro(mat.group(1).trim())!=-1||this.id.esMemoria(mat.group(1).trim())){
 								if(mat.group(2).equals("")){
-									return strLinea+" Correcto\n";
+									this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(5, mat.group(1), null));
+									return cpA+" "+strLinea+" Correcto\n";
 								}
 								else{
-									return strLinea+" Incorrecto, se esperaba un solo operando\n";
+									return cpA+" "+strLinea+" Incorrecto, se esperaba un solo operando\n";
 								}
 							}else{
-								return strLinea+" Incorrecto, se esperaba un registro o memoria\n";
+								return cpA+" "+strLinea+" Incorrecto, se esperaba un registro o memoria\n";
 							}
 						}else{
 							mat = pat6.matcher(strLinea);
 							if(mat.find()){
 								if(this.id.esRegistro(mat.group(1).trim())!=-1||this.id.esMemoria(mat.group(1).trim())||this.id.esRegistroS(mat.group(1).trim())){
 									if(mat.group(2).equals("")){
-										return strLinea+" Correcto\n";
+										this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(6, mat.group(1), null));
+										return cpA+" "+strLinea+" Correcto\n";
 									}
 									else{
-										return strLinea+" Incorrecto, se esperaba un solo operando\n";
+										return cpA+" "+strLinea+" Incorrecto, se esperaba un solo operando\n";
 									}
 								}else{
-									return strLinea+" Incorrecto, se esperaba un registro o memoria\n";
+									return cpA+" "+strLinea+" Incorrecto, se esperaba un registro o memoria\n";
 								}
 							}else{
 								mat = pat7.matcher(strLinea);
 								if(mat.find()){
 									if((aux = this.id.esRegistro(mat.group(1).trim()))!=-1){
 										if(aux==this.id.esRegistro(mat.group(2).trim())||this.id.esMemoria(mat.group(2).trim())||(this.id.esConsNumBoW(mat.group(2).trim())!=-1&&this.id.esConsNumBoW(mat.group(2).trim())<=aux)){			
-											return strLinea+" Correcto\n";
+											this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(7, mat.group(1), mat.group(2)));
+											return cpA+" "+strLinea+" Correcto\n";
 										}else{
-											return strLinea+" Incorrecto, se esperaba registro, memoria o inmediato del mismo tamaño en el segundo operando\n";
+											return cpA+" "+strLinea+" Incorrecto, se esperaba registro, memoria o inmediato del mismo tamaño en el segundo operando\n";
 										}
 									}else if(this.id.esMemoria(mat.group(1).trim())){
 										if(this.id.esRegistro(mat.group(2).trim())!=-1||this.id.esConsNumBoW(mat.group(2).trim())!=-1){
-											return strLinea+" Correcto\n";
+											this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(7, mat.group(1), mat.group(2)));
+											return cpA+" "+strLinea+" Correcto\n";
 										}else{
-											return strLinea+" Incorrecto, se esperaba registro o inmediato del mismo tamaño en el segundo operando\n";
+											return cpA+" "+strLinea+" Incorrecto, se esperaba registro o inmediato del mismo tamaño en el segundo operando\n";
 										}
 									}else{
-										return strLinea+" Incorrecto, se esperaba registro o memoria en el primer operando\n";
+										return cpA+" "+strLinea+" Incorrecto, se esperaba registro o memoria en el primer operando\n";
 									}
 								}else{
 									mat = pat8.matcher(strLinea);
 									if(mat.find()){
 										if((aux = this.id.esRegistro(mat.group(1).trim()))!=-1){
 											if(aux==this.id.esRegistro(mat.group(2).trim())||this.id.esMemoria(mat.group(2).trim())||(this.id.esConsNumBoW(mat.group(2).trim())!=-1&&this.id.esConsNumBoW(mat.group(2).trim())<=aux)){
-												return strLinea+" Correcto\n";
+												this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(8, mat.group(1), mat.group(2)));
+												return cpA+" "+strLinea+" Correcto\n";
 											}else{
-												return strLinea+" Incorrecto, se esperaba registro, memoria o inmediato del mismo tamaño en el segundo operando\n";
+												return cpA+" "+strLinea+" Incorrecto, se esperaba registro, memoria o inmediato del mismo tamaño en el segundo operando\n";
 											}
 										}else if(this.id.esMemoria(mat.group(1).trim())){
 											if(this.id.esRegistro(mat.group(2).trim())!=-1||this.id.esConsNumBoW(mat.group(2).trim())!=-1){
-												return strLinea+" Correcto\n";
+												this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(8, mat.group(1), mat.group(2)));
+												return cpA+" "+strLinea+" Correcto\n";
 											}else{
-												return strLinea+" Incorrecto, se esperaba registro o inmediato en el segundo operando\n";
+												return cpA+" "+strLinea+" Incorrecto, se esperaba registro o inmediato en el segundo operando\n";
 											}
 										}else{
-											return strLinea+" Incorrecto, se esperaba registro o memoria del mismo tamaño en el primer operando\n";
+											return cpA+" "+strLinea+" Incorrecto, se esperaba registro o memoria del mismo tamaño en el primer operando\n";
 										}
 									}else{
 										mat = pat9.matcher(strLinea);
 										if(mat.find()){
 											if(this.simMan.findSimbolo(mat.group(1).trim())==3){
-												return strLinea+" Correcto\n";
+												this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(9, mat.group(1), null));
+												return cpA+" "+strLinea+" Correcto\n";
 											}else{
-												return strLinea+" Incorrecto, se esperaba etiqueta\n";
+												return cpA+" "+strLinea+" Incorrecto, se esperaba etiqueta\n";
 											}
 										}else{
 											mat = pat10.matcher(strLinea);
 											if(mat.find()){
 												if(this.simMan.findSimbolo(mat.group(1).trim())==3){
-													return strLinea+" Correcto\n";
+													this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(10, mat.group(1), null));
+													return cpA+" "+strLinea+" Correcto\n";
 												}else{
-													return strLinea+" Incorrecto, se esperaba etiqueta\n";
+													return cpA+" "+strLinea+" Incorrecto, se esperaba etiqueta\n";
 												}
 											}else{
 												mat = pat11.matcher(strLinea);
 												if(mat.find()){
 													if(this.simMan.findSimbolo(mat.group(1).trim())==3){
-														return strLinea+" Correcto\n";
+														this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(11, mat.group(1), null));
+														return cpA+" "+strLinea+" Correcto\n";
 													}else{
-														return strLinea+" Incorrecto, se esperaba etiqueta\n";
+														return cpA+" "+strLinea+" Incorrecto, se esperaba etiqueta\n";
 													}
 												}else{
 													mat = pat12.matcher(strLinea);
 													if(mat.find()){
 														if(this.simMan.findSimbolo(mat.group(1).trim())==3){
-															return strLinea+" Correcto\n";
+															this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(12, mat.group(1), null));
+															return cpA+" "+strLinea+" Correcto\n";
 														}else{
-															return strLinea+" Incorrecto, se esperaba etiqueta\n";
+															return cpA+" "+strLinea+" Incorrecto, se esperaba etiqueta\n";
 														}
 													}else{
 														mat = pat13.matcher(strLinea);
 														if(mat.find()){
-															Simbolo sim = new Simbolo(mat.group(1).trim(),"label",null,null);
+															Simbolo sim = new Simbolo(mat.group(1).trim(),"label",null,null,cpA);
 															this.simMan.addSimbolo(sim);
-															return strLinea+" Correcto\n";
+															return cpA+" "+strLinea+" Correcto\n";
 														}
 													}
 												}
@@ -193,7 +216,11 @@ public class Fase_4 {
 				}
 			}
 		}
-		return strLinea+" Incorrecto, instruccion no identificada\n";
+		return cpA+" "+strLinea+" Incorrecto, instruccion no identificada\n";
+	}
+
+	public String getCp() {
+		return cp;
 	}
 
 }

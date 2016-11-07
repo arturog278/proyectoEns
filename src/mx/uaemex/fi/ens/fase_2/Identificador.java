@@ -23,7 +23,7 @@ public class Identificador {
 	}
 	
 	public boolean esMemoria(String obj) throws Exception{
-		Pattern pat = Pattern.compile("^(\\[\\s*(\\w+)\\s*\\+\\s*(\\w+)\\s*\\+(\\w+)\\s*\\]|\\[\\s*(\\w+)\\s*\\+\\s*(\\w+)\\s*\\]|\\[\\s*(\\w+)\\s*\\])$");; 
+		Pattern pat = Pattern.compile("^(\\[\\s*(\\w+)\\s*\\+\\s*(\\w+)\\s*\\+(\\w+)\\s*\\]|\\[\\s*(\\w+)\\s*\\+\\s*(\\w+)\\s*\\]|\\[\\s*(\\w+)\\s*\\])$"); 
 		Matcher mat = pat.matcher(obj);
 		if(mat.find()){
 			if(mat.group(2)!=null){
@@ -219,7 +219,11 @@ public class Identificador {
 				 return 1;
 			 }
 		 }else if(this.esConsString(obj)){
-			 return 2;
+			 if(obj.length()==3){			
+				 if((obj.charAt(0)=='"' && obj.charAt(2)=='"') || (obj.charAt(0)=='\'' && obj.charAt(2)=='\'')){
+					 return 2;
+				 }
+			 }
 		 }
 		 return -1;		 
 	 }
@@ -231,6 +235,15 @@ public class Identificador {
 			 return 2;
 		 }
 		 return -1;
+	 }
+	 
+	 public int consNumToDec(String obj){
+		 if(this.esConsBin(obj)){
+			 return Identificador.bin2decimal(obj);
+		 }else if(this.esConsHexa(obj)){
+			 return Identificador.hex2decimal(obj);
+		 }
+		 return Integer.parseInt(obj);
 	 }
 	 
 	 public int esConsWord(String obj){
@@ -248,8 +261,6 @@ public class Identificador {
 			 if(deci>-32769 && deci<65536){
 				 return 1;
 			 }
-		 }else if(this.esConsString(obj)){
-			 return 2;
 		 }
 		 return -1;		 
 	 }
