@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="1.8.0_101" class="java.beans.XMLDecoder">
+<java version="1.7.0_79" class="java.beans.XMLDecoder">
  <object class="java.util.Vector">
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
@@ -64,7 +64,7 @@
      <string>0003</string>
     </void>
     <void property="simbolo">
-     <string>var3</string>
+     <string>var4</string>
     </void>
     <void property="tamaño">
      <string>b</string>
@@ -73,14 +73,14 @@
      <string>var</string>
     </void>
     <void property="valor">
-     <string>0</string>
+     <string>010h</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="direccion">
-     <string>003F</string>
+     <string>034A</string>
     </void>
     <void property="simbolo">
      <string>var5</string>
@@ -99,7 +99,7 @@
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="direccion">
-     <string>0043</string>
+     <string>034E</string>
     </void>
     <void property="simbolo">
      <string>var6</string>
@@ -147,7 +147,7 @@
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="direccion">
-     <string>0008</string>
+     <string>0010</string>
     </void>
     <void property="simbolo">
      <string>ET2</string>
@@ -160,7 +160,7 @@
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="direccion">
-     <string>0015</string>
+     <string>0024</string>
     </void>
     <void property="simbolo">
      <string>ET3</string>
@@ -173,7 +173,7 @@
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="direccion">
-     <string>001C</string>
+     <string>002B</string>
     </void>
     <void property="simbolo">
      <string>ET4</string>

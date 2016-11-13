@@ -1,47 +1,38 @@
 0000 data segment Correcto
 0000 var1 db 046H Correcto
 0001 var2 dw 2345 Correcto
-0003 var3 db 60 dup(0) Correcto
-003F var4 db 0347h dup(010h) Incorrecto, se esperaba una constante tamaño byte
-003F var5 db "tres" Correcto
-0043 var6 db 100 dup(' ') Correcto
-00A7 const7 equ 0 Correcto
-00A7 ends Correcto
-00A7 stack segment Correcto
+0003 var3 db 6A0 dup(0) Incorrecto, se esperaba una constante tamaño byte
+0003 var4 db 0347h dup(010h) Correcto
+034A var5 db "tres" Correcto
+034E var6 db 100 dup(' ') Correcto
+03B2 const7 equ 0 Correcto
+03B2 ends Correcto
+03B2 stack segment Correcto
 0000 dw 128 dup(0) Correcto
 0100 ends Correcto
 0100 code segment Correcto
 0000 CLC Correcto
-0001 CLC 56 Incorrecto, no lleva operandos
 0001 INTO BX Incorrecto, no lleva operandos
 0001 INTO Correcto
-0002 PUSHA VAR1 Incorrecto, no lleva operandos
 0002 PUSHA Correcto
-0003 PUSHF 090H Incorrecto, no lleva operandos
 0003 PUSHF Correcto
 0004 ET1: Correcto
 0004 IMUL VAR5 Correcto
-0006 IMUL 100 Incorrecto, se esperaba un registro o memoria
-0006 POP DX Correcto
-0008 POP VAR2,80 Incorrecto, se esperaba un solo operando
-0008 ET2: Correcto
-0008 OR DH,10101010b Correcto
-000B OR VAR5,AL Correcto
-000F OR SI,DL Incorrecto, se esperaba registro, memoria o inmediato del mismo tamaño en el segundo operando
-000F ADC DI,0CCH Correcto
-0012 ADC VAR10,CL Incorrecto, se esperaba registro o memoria del mismo tamaño en el primer operando
-0012 ADC [BX+060H],20 Correcto
-0015 ET3: Correcto
-0015 JGE CONST7 Incorrecto, se esperaba etiqueta
-0015 JGE ET1 Correcto
-0019 JMP 0100H Incorrecto, se esperaba etiqueta
-0019 JMP ET2 Correcto
-001C ET4: Correcto
-001C JNLE DS Incorrecto, se esperaba etiqueta
-001C JNLE ET3 Correcto
-0020 LOOPE Incorrecto, se esperaba etiqueta
-0020 LOOPE ET4 Correcto
-0022 MOV AX,BX Incorrecto, instruccion no identificada
-0022 NOT VAR4 Incorrecto, instruccion no identificada
-0022 AAD Incorrecto, instruccion no identificada
-0022 ENDS Correcto
+0008 IMUL AH Correcto
+000A POP DX Correcto
+000C POP WORD PTR [BX+5000] Correcto
+0010 ET2: Correcto
+0010 OR DH,10101010b Correcto
+0013 OR VAR5,AL Correcto
+0017 OR SI,DX Correcto
+0019 ADC DI,0CCH Correcto
+001C ADC VAR6,CL Correcto
+0020 ADC [BX+060H],20 Correcto
+0024 ET3: Correcto
+0024 JGE ET1 Correcto
+0028 JMP ET2 Correcto
+002B ET4: Correcto
+002B JNLE ET3 Correcto
+002F LOOPE Incorrecto, se esperaba etiqueta
+002F LOOPE ET4 Correcto
+0031 ENDS Correcto

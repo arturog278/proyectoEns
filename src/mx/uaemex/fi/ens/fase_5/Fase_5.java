@@ -38,13 +38,13 @@ public class Fase_5 {
 		case PUSHF:
 			return 1;
 		case IMUL:
-			if(this.id.esRegistro(str1)!=1){
+			if(this.id.esRegistro(str1)!=-1){
 				return 2;
 			}else{
 				return 2+this.identificarDespMem(str1);
 			}
 		case POP:
-			if(this.id.esRegistro(str1)!=1){
+			if(this.id.esRegistro(str1)!=-1){
 				return 2;
 			}else if(this.id.esConsNumBoW(str1)!=-1){
 				return 2+this.id.esConsNumBoW(str1);
@@ -68,9 +68,9 @@ public class Fase_5 {
 				if(this.id.esRegistro(str2)!=-1){
 					return 2+this.identificarDespMem(str1);
 				}else if(this.id.esConsNumBoW(str2)!=-1){
-					return 2+this.id.esConsNumBoW(str2);
+					return 2+this.id.esConsNumBoW(str2)+this.identificarDespMem(str1);
 				}else{
-					return 2+this.sim.getTamaño(str2);
+					return 2+this.sim.getTamaño(str2)+this.identificarDespMem(str1);
 				}
 			}
 		case ADC:
@@ -88,9 +88,9 @@ public class Fase_5 {
 				if(this.id.esRegistro(str2)!=-1){
 					return 2+this.identificarDespMem(str1);
 				}else if(this.id.esConsNumBoW(str2)!=-1){
-					return 2+this.id.esConsNumBoW(str2);
+					return 2+this.id.esConsNumBoW(str2)+this.identificarDespMem(str1);
 				}else{
-					return 2+this.sim.getTamaño(str2);
+					return 2+this.sim.getTamaño(str2)+this.identificarDespMem(str1);
 				}
 			}
 		case JGE:

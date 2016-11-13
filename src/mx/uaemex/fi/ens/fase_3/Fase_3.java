@@ -78,9 +78,9 @@ public class Fase_3 {
 				vecGroup[i] = mat.group(i+1);
 			}
 			if(vecGroup[1].equalsIgnoreCase("db")){
-				if(this.id.esConsByte(vecGroup[2])!=-1||this.id.esConsString(vecGroup[2])){
+				if(this.id.esConsNumBoW(vecGroup[2])!=-1||this.id.esConsString(vecGroup[2])){
 					if(vecGroup[4]!=null){
-						if(this.id.esConsByte(vecGroup[5])!=-1 && this.id.esConsByte(vecGroup[2])==1){
+						if(this.id.esConsByte(vecGroup[5])!=-1 && this.id.esConsNumBoW(vecGroup[2])!=-1){
 							this.bw.write(this.cp+" "+strLinea+" Correcto\n");
 							this.addSimbolo(vecGroup[0],"var" , vecGroup[5], "b",this.cp);
 							this.cp = this.count.suma(this.cp,this.fase5.calcularTamañoDS(vecGroup));
@@ -88,17 +88,21 @@ public class Fase_3 {
 							this.bw.write(this.cp+" "+strLinea+" Incorrecto, se esperaba una constante tamaño byte en el dup\n");
 						}
 					}else{
-						this.bw.write(this.cp+" "+strLinea+" Correcto\n");
-						this.addSimbolo(vecGroup[0],"var" , vecGroup[2], "b",this.cp);
-						this.cp = this.count.suma(this.cp,this.fase5.calcularTamañoDS(vecGroup));
+						if(this.id.esConsByte(vecGroup[2])!=-1||this.id.esConsString(vecGroup[2])){
+							this.bw.write(this.cp+" "+strLinea+" Correcto\n");
+							this.addSimbolo(vecGroup[0],"var" , vecGroup[2], "b",this.cp);
+							this.cp = this.count.suma(this.cp,this.fase5.calcularTamañoDS(vecGroup));
+						}else{
+							this.bw.write(this.cp+" "+strLinea+" Incorrecto, se esperaba una constante tamaño byte\n");
+						}
 					}
 				}else{
 					this.bw.write(this.cp+" "+strLinea+" Incorrecto, se esperaba una constante tamaño byte\n");
 				}
 			}else if(vecGroup[1].equalsIgnoreCase("dw")){
-				if(this.id.esConsWord(vecGroup[2])==1){
+				if(this.id.esConsNumBoW(vecGroup[2])!=-1){
 					if(vecGroup[4]!=null){
-						if(this.id.esConsWord(vecGroup[5])==1 && this.id.esConsWord(vecGroup[2])==1){
+						if(this.id.esConsWord(vecGroup[5])==1 && this.id.esConsNumBoW(vecGroup[2])!=-1){
 							this.bw.write(this.cp+" "+strLinea+" Correcto\n");
 							this.addSimbolo(vecGroup[0],"var" , vecGroup[5], "w",this.cp);
 							this.cp = this.count.suma(this.cp,this.fase5.calcularTamañoDS(vecGroup));
@@ -106,9 +110,13 @@ public class Fase_3 {
 							this.bw.write(this.cp+" "+strLinea+" Incorrecto, se esperaba una constante tamaño word en el dup\n");
 						}
 					}else{
-						this.bw.write(this.cp+" "+strLinea+" Correcto\n");
-						this.addSimbolo(vecGroup[0],"var" , vecGroup[2], "w",this.cp);
-						this.cp = this.count.suma(this.cp,this.fase5.calcularTamañoDS(vecGroup));
+						if(this.id.esConsWord(vecGroup[2])!=-1){
+							this.bw.write(this.cp+" "+strLinea+" Correcto\n");
+							this.addSimbolo(vecGroup[0],"var" , vecGroup[2], "w",this.cp);
+							this.cp = this.count.suma(this.cp,this.fase5.calcularTamañoDS(vecGroup));
+						}else{
+							this.bw.write(this.cp+" "+strLinea+" Incorrecto, se esperaba una constante tamaño word\n");
+						}
 					}
 				}else{
 					this.bw.write(this.cp+" "+strLinea+" Incorrecto, se esperaba una constante numerica tamaño word\n");
