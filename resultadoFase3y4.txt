@@ -34,5 +34,5 @@
 002C ET4: Correcto
 002C JNLE ET3 0F8F0025
 0030 LOOPE Incorrecto, se esperaba etiqueta
-0030 LOOPE ET4 E106
+0030 LOOPE ET4 E1FA
 0032 ENDS Correcto

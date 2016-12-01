@@ -597,7 +597,8 @@ public class Fase_6 {
 			int posAct = Integer.parseInt(str1, 16);
 			int posEtq = Integer.parseInt(this.sim.getDireccion(str2), 16);
 			int dif = posAct-posEtq+2;
-			String desp = this.consNumToHex(1, String.valueOf(dif));
+			int res = 256-dif;
+			String desp = this.consNumToHex(1, String.valueOf(res));
 			String code = "11100001";
 			return this.binToHex(code)+desp;
 		}
