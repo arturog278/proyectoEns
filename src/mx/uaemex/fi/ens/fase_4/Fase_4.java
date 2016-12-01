@@ -14,6 +14,7 @@ import mx.uaemex.fi.ens.fase_3.Simbolo;
 import mx.uaemex.fi.ens.fase_3.SimboloManager;
 import mx.uaemex.fi.ens.fase_5.Contador;
 import mx.uaemex.fi.ens.fase_5.Fase_5;
+import mx.uaemex.fi.ens.fase_6.Fase_6;
 
 public class Fase_4 {
 	private Pattern pat1;
@@ -33,6 +34,7 @@ public class Fase_4 {
 	private Identificador id;
 	private Contador count;
 	private Fase_5 fase5;
+	private Fase_6 fase6;
 	private String cp;
 
 	public Fase_4() throws Exception {
@@ -53,6 +55,7 @@ public class Fase_4 {
 		this.id = new Identificador();
 		this.count = new Contador();
 		this.fase5 = new Fase_5();
+		this.fase6 = new Fase_6();
 	}
 	
 	public String CheckLineCode(String strLinea,String cpA) throws Exception{
@@ -62,7 +65,7 @@ public class Fase_4 {
 		if(mat.find()){
 			if(mat.group(3).equals("")){
 				this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(1, null, null));
-				return cpA+" "+strLinea+" Correcto\n";
+				return cpA+" "+strLinea+" "+this.fase6.getCode(1, null, null)+"\n";
 			}else{
 				return cpA+" "+strLinea+" Incorrecto, no lleva operandos\n";
 			}
@@ -71,7 +74,7 @@ public class Fase_4 {
 			if(mat.find()){
 				if(mat.group(3).equals("")){
 					this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(2, null, null));
-					return cpA+" "+strLinea+" Correcto\n";
+					return cpA+" "+strLinea+" "+this.fase6.getCode(2, null, null)+"\n";
 				}else{
 					return cpA+" "+strLinea+" Incorrecto, no lleva operandos\n";
 				}
@@ -80,7 +83,7 @@ public class Fase_4 {
 				if(mat.find()){
 					if(mat.group(3).equals("")){
 						this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(3, null, null));
-						return cpA+" "+strLinea+" Correcto\n";
+						return cpA+" "+strLinea+" "+this.fase6.getCode(3, null, null)+"\n";
 					}else{
 						return cpA+" "+strLinea+" Incorrecto, no lleva operandos\n";
 					}
@@ -89,7 +92,7 @@ public class Fase_4 {
 					if(mat.find()){
 						if(mat.group(3).equals("")){
 							this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(4, null, null));
-							return cpA+" "+strLinea+" Correcto\n";
+							return cpA+" "+strLinea+" "+this.fase6.getCode(4, null, null)+"\n";
 						}else{
 							return cpA+" "+strLinea+" Incorrecto, no lleva operandos\n";
 						}
@@ -99,7 +102,7 @@ public class Fase_4 {
 							if(this.id.esRegistro(mat.group(3).trim())!=-1||this.id.esMemoria(mat.group(3).trim())){
 								if(mat.group(4).equals("")){
 									this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(5, mat.group(3), null));
-									return cpA+" "+strLinea+" Correcto\n";
+									return cpA+" "+strLinea+" "+this.fase6.getCode(5, mat.group(3), null)+"\n";
 								}
 								else{
 									return cpA+" "+strLinea+" Incorrecto, se esperaba un solo operando\n";
@@ -113,7 +116,7 @@ public class Fase_4 {
 								if(this.id.esRegistro(mat.group(3).trim())!=-1||this.id.esMemoria(mat.group(3).trim())||this.id.esRegistroS(mat.group(3).trim())){
 									if(mat.group(4).equals("")){
 										this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(6, mat.group(3), null));
-										return cpA+" "+strLinea+" Correcto\n";
+										return cpA+" "+strLinea+" "+this.fase6.getCode(6, mat.group(3), null)+"\n";
 									}
 									else{
 										return cpA+" "+strLinea+" Incorrecto, se esperaba un solo operando\n";
@@ -127,14 +130,14 @@ public class Fase_4 {
 									if((aux = this.id.esRegistro(mat.group(3).trim()))!=-1){
 										if(aux==this.id.esRegistro(mat.group(4).trim())||this.id.esMemoria(mat.group(4).trim())||(this.id.esConsNumBoW(mat.group(4).trim())!=-1&&this.id.esConsNumBoW(mat.group(4).trim())<=aux)){			
 											this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(7, mat.group(3), mat.group(4)));
-											return cpA+" "+strLinea+" Correcto\n";
+											return cpA+" "+strLinea+" "+this.fase6.getCode(7, mat.group(3), mat.group(4))+"\n";
 										}else{
 											return cpA+" "+strLinea+" Incorrecto, se esperaba registro, memoria o inmediato del mismo tamaño en el segundo operando\n";
 										}
 									}else if(this.id.esMemoria(mat.group(3).trim())){
 										if(this.id.esRegistro(mat.group(4).trim())!=-1||this.id.esConsNumBoW(mat.group(4).trim())!=-1){
 											this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(7, mat.group(3), mat.group(4)));
-											return cpA+" "+strLinea+" Correcto\n";
+											return cpA+" "+strLinea+" "+this.fase6.getCode(7, mat.group(3), mat.group(4))+"\n";
 										}else{
 											return cpA+" "+strLinea+" Incorrecto, se esperaba registro o inmediato del mismo tamaño en el segundo operando\n";
 										}
@@ -147,14 +150,14 @@ public class Fase_4 {
 										if((aux = this.id.esRegistro(mat.group(3).trim()))!=-1){
 											if(aux==this.id.esRegistro(mat.group(4).trim())||this.id.esMemoria(mat.group(4).trim())||(this.id.esConsNumBoW(mat.group(4).trim())!=-1&&this.id.esConsNumBoW(mat.group(4).trim())<=aux)){
 												this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(8, mat.group(3), mat.group(4)));
-												return cpA+" "+strLinea+" Correcto\n";
+												return cpA+" "+strLinea+" "+this.fase6.getCode(8, mat.group(3), mat.group(4))+"\n";
 											}else{
 												return cpA+" "+strLinea+" Incorrecto, se esperaba registro, memoria o inmediato del mismo tamaño en el segundo operando\n";
 											}
 										}else if(this.id.esMemoria(mat.group(3).trim())){
 											if(this.id.esRegistro(mat.group(4).trim())!=-1||this.id.esConsNumBoW(mat.group(4).trim())!=-1){
 												this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(8, mat.group(3), mat.group(4)));
-												return cpA+" "+strLinea+" Correcto\n";
+												return cpA+" "+strLinea+" "+this.fase6.getCode(8, mat.group(3), mat.group(4))+"\n";
 											}else{
 												return cpA+" "+strLinea+" Incorrecto, se esperaba registro o inmediato en el segundo operando\n";
 											}
@@ -166,7 +169,7 @@ public class Fase_4 {
 										if(mat.find()){
 											if(this.simMan.findSimbolo(mat.group(3).trim())==3){
 												this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(9, mat.group(3), null));
-												return cpA+" "+strLinea+" Correcto\n";
+												return cpA+" "+strLinea+" "+this.fase6.getCode(9, mat.group(3), null)+"\n";
 											}else{
 												return cpA+" "+strLinea+" Incorrecto, se esperaba etiqueta\n";
 											}
@@ -175,7 +178,7 @@ public class Fase_4 {
 											if(mat.find()){
 												if(this.simMan.findSimbolo(mat.group(3).trim())==3){
 													this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(10, mat.group(3), null));
-													return cpA+" "+strLinea+" Correcto\n";
+													return cpA+" "+strLinea+" "+this.fase6.getCode(10, mat.group(3), null)+"\n";
 												}else{
 													return cpA+" "+strLinea+" Incorrecto, se esperaba etiqueta\n";
 												}
@@ -184,7 +187,7 @@ public class Fase_4 {
 												if(mat.find()){
 													if(this.simMan.findSimbolo(mat.group(3).trim())==3){
 														this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(11, mat.group(3), null));
-														return cpA+" "+strLinea+" Correcto\n";
+														return cpA+" "+strLinea+" "+this.fase6.getCode(11, mat.group(3), null)+"\n";
 													}else{
 														return cpA+" "+strLinea+" Incorrecto, se esperaba etiqueta\n";
 													}
@@ -193,7 +196,7 @@ public class Fase_4 {
 													if(mat.find()){
 														if(this.simMan.findSimbolo(mat.group(3).trim())==3){
 															this.cp = this.count.suma(this.cp, this.fase5.calcularTamañoCS(12, mat.group(3), null));
-															return cpA+" "+strLinea+" Correcto\n";
+															return cpA+" "+strLinea+" "+this.fase6.getCode(12,cpA, mat.group(3))+"\n";
 														}else{
 															return cpA+" "+strLinea+" Incorrecto, se esperaba etiqueta\n";
 														}

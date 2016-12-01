@@ -46,21 +46,22 @@ public class Fase_5 {
 		case POP:
 			if(this.id.esRegistro(str1)!=-1){
 				return 2;
-			}else if(this.id.esConsNumBoW(str1)!=-1){
-				return 2+this.id.esConsNumBoW(str1);
+			}else if(this.id.esRegistroS(str1)){
+				return 1;
 			}else if(this.sim.findSimbolo(str1)==2){
 				return 2+this.sim.getTamaño(str1);
 			}else{
 				return 2+this.identificarDespMem(str1);
 			}
 		case OR:
-			if(this.id.esRegistro(str1)!=-1){
+			int aux;
+			if((aux=this.id.esRegistro(str1))!=-1){
 				if(this.id.esRegistro(str2)!=-1){
 					return 2;
 				}else if(this.id.esConsNumBoW(str2)!=-1){
-					return 2+this.id.esConsNumBoW(str2);
+					return 2+aux;
 				}else if(this.sim.findSimbolo(str2)==2){
-					return 2+this.sim.getTamaño(str2);
+					return 2+aux;
 				}else{
 					return 2+this.identificarDespMem(str2);
 				}
@@ -74,13 +75,14 @@ public class Fase_5 {
 				}
 			}
 		case ADC:
-			if(this.id.esRegistro(str1)!=-1){
+			int aux2;
+			if((aux2=this.id.esRegistro(str1))!=-1){
 				if(this.id.esRegistro(str2)!=-1){
 					return 2;
 				}else if(this.id.esConsNumBoW(str2)!=-1){
-					return 2+this.id.esConsNumBoW(str2);
+					return 2+aux2;
 				}else if(this.sim.findSimbolo(str2)==2){
-					return 2+this.sim.getTamaño(str2);
+					return 2+aux2;
 				}else{
 					return 2+this.identificarDespMem(str2);
 				}

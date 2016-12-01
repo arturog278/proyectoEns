@@ -90,5 +90,29 @@ public class SimboloManager {
 		return -1;
 	}
 	
+	public String getDireccion(String obj)throws Exception{
+		this.decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("tablaSimbolos.xml")));
+		this.simbolos = (Vector<Simbolo>) this.decoder.readObject();
+		this.decoder.close();
+		for(Simbolo s:this.simbolos){
+			if(s.getSimbolo().equalsIgnoreCase(obj)){
+				return s.getDireccion();
+			}
+		}
+		return null;
+	}
+	
+	public String getValor(String obj)throws Exception{
+		this.decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("tablaSimbolos.xml")));
+		this.simbolos = (Vector<Simbolo>) this.decoder.readObject();
+		this.decoder.close();
+		for(Simbolo s:this.simbolos){
+			if(s.getSimbolo().equalsIgnoreCase(obj)){
+				return s.getValor();
+			}
+		}
+		return null;
+	}
+	
 
 }

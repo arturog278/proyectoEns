@@ -160,7 +160,7 @@
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="direccion">
-     <string>0024</string>
+     <string>0025</string>
     </void>
     <void property="simbolo">
      <string>ET3</string>
@@ -173,7 +173,7 @@
   <void method="add">
    <object class="mx.uaemex.fi.ens.fase_3.Simbolo">
     <void property="direccion">
-     <string>002B</string>
+     <string>002C</string>
     </void>
     <void property="simbolo">
      <string>ET4</string>
